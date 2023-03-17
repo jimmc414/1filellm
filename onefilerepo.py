@@ -4,7 +4,7 @@ from pathlib import Path
 import nbformat
 from nbconvert import PythonExporter
 
-TOKEN = "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"
+TOKEN = "GITHUB_PERSONAL_ACCESS_TOKEN"
 headers = {"Authorization": f"token {TOKEN}"}
 
 def download_file(url, target_path):

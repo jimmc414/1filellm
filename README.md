@@ -17,26 +17,21 @@ This is a collection of scripts used to download and prepare a GitHub repository
 This script takes a GitHub repository URL or a local folder path as input and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks.
 
 Usage:
-'''
 python onefilerepo.py
-'''
+
 ### 2. clean.py
 
 This script takes an input file, preprocesses the text by removing stopwords, extra whitespaces, and carriage returns, and converts the text to lowercase to minimize token usage.
 
 Usage:
-'''
 python clean.py
-'''
 
 ### 3. urlextractor.py
 
 This script takes an input file and extracts all URLs from the text, saving them into a separate output file.
 
 Usage:
-'''
 python urlextractor.py
-'''
 
 ## Getting Started
 
@@ -44,9 +39,9 @@ python urlextractor.py
 2. Install the required libraries:
 
 You can install all required libraries in a single line using the following command:
-'''
+
 pip install requests nbformat nbconvert nltk
-'''
+
 Simply run this command in your terminal or command prompt to install the necessary libraries for the scripts.
 
 
@@ -71,6 +66,4 @@ Your new personal access token will be displayed. Copy the token and save it som
 
 In the onefilerepo.py script, replace the GITHUB_PERSONAL_TOKEN placeholder with your actual token:
 
-'''
 TOKEN = "GITHUB_PERSONAL_TOKEN"
-'''

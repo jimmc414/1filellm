@@ -7,8 +7,8 @@ All scripts are included when you run onefilerepo.py or they can be run individu
 ## features
 
 - Supports downloading and processing of GitHub repositories or local folders
-- Supports various file types, including Jupyter notebooks, omits all html, leaves code and text.  
-- Cleans and preprocesses the text for better language model ingestion
+- Supports various file types, including Jupyter notebooks
+- Cleans and preprocesses the text for more efficient language model ingestion
 - Extracts and saves all URLs from the text separately
 - Provides a final token count
 

@@ -16,7 +16,7 @@ All scripts are included when you run onefilerepo.py or they can be run individu
 You will need to generate a Github personal token, they are easy and free.  You need to log into GitHub and go to Settings > Developer settings > Personal access tokens > Generate new token
 ## Scripts
 
-### 1. onefilerepo.py
+### onefilerepo.py
 
 This script takes a GitHub repository URL or a local folder path as input and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks.  also runs clean.py, urlextractor.py and token counter.
 
@@ -79,14 +79,14 @@ The input text file has 70580 tokens.
 
 
 
-### 2. clean.py
+### clean.py
 
 This script takes an input file, preprocesses the text by removing stopwords, extra whitespaces, and carriage returns, and converts the text to lowercase to minimize token usage.
 
 Usage:
 `python clean.py`
 
-### 3. urlextractor.py
+### urlextractor.py
 
 This script takes an input file and extracts all URLs from the text, saving them into a separate output file.
 
@@ -95,8 +95,8 @@ Usage:
 
 ## Getting Started
 
-1. Clone or download the repository.
-2. Install the required libraries:
+Clone or download the repository.
+Install the required libraries:
 
 You can install all required libraries in a single line using the following command:
 

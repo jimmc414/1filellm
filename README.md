@@ -1,15 +1,16 @@
 
 # Repo-Prep for LLM Ingestion
 
-This is a collection of scripts used to download and prepare a GitHub repository or a local folder of code files for ingestion by a language model. The code files are concatenated into a single file, cleaned to remove stopwords and extra whitespaces, and transformed to lowercase to minimize token usage. Additionally, URLs from the text are extracted and saved separately.
+This is a collection of scripts that can be run together or individually and used to download and prepare a GitHub repository or a local folder of code files for ingestion by a language model. The code files are concatenated into a single file, cleaned to remove stopwords and extra whitespaces, and transformed to lowercase to minimize token usage. Additionally, URLs from the text are extracted and saved separately.
 All scripts are included when you run onefilerepo.py or they can be run individually.
 
-## Features
+## features
 
 - Supports downloading and processing of GitHub repositories or local folders
-- Supports various file types, including Jupyter notebooks
+- Supports various file types, including Jupyter notebooks, omits all html, leaves code and text.  
 - Cleans and preprocesses the text for better language model ingestion
 - Extracts and saves all URLs from the text separately
+- Provides a final token count
 
 ## prerequisites
 `pip install requests nbformat nbconvert nltk`
@@ -20,7 +21,7 @@ You will need to generate a Github personal token, they are easy and free.  You 
 
 This script takes a GitHub repository URL or a local folder path as input and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks.  also runs clean.py, urlextractor.py and token counter.
 
-Usage:
+usage:
 `python onefilerepo.py`
 Input: URL or Folder location, you can add or omit file types in code if needed.
 Output: "concatenated_files.txt" - text output of all specified files, "output.txt" - cleaned up text with stop words and superfluous characters removed, "links.txt" - a list of all links repo the file, a token count of the final output.txt file

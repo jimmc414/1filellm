@@ -11,14 +11,20 @@ All scripts are included when you run onefilerepo.py or they can be run individu
 - Cleans and preprocesses the text for better language model ingestion
 - Extracts and saves all URLs from the text separately
 
+## prerequisites
+`pip install requests nbformat nbconvert nltk`
+You will need to generate a Github personal token, they are easy and free.  You need to log into GitHub and go to Settings > Developer settings > Personal access tokens > Generate new token
 ## Scripts
 
 ### 1. onefilerepo.py
 
-This script takes a GitHub repository URL or a local folder path as input and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks.
+This script takes a GitHub repository URL or a local folder path as input and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks.  also runs clean.py, urlextractor.py and token counter.
 
 Usage:
 `python onefilerepo.py`
+Input: URL or Folder location, you can add or omit file types in code if needed.
+Output: "concatenated_files.txt" - text output of all specified files, "output.txt" - cleaned up text with stop words and superfluous characters removed, "links.txt" - a list of all links repo the file, a token count of the final output.txt file
+
 ```
 (jim) C:\python\OneFileRepo>onefilerepo.py
 [nltk_data] Downloading package stopwords to

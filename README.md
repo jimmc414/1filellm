@@ -19,15 +19,13 @@ This script takes a GitHub repository URL or a local folder path as input and pr
 
 Usage:
 `python onefilerepo.py`
-
+```
 (jim) C:\python\OneFileRepo>onefilerepo.py
 [nltk_data] Downloading package stopwords to
 [nltk_data]     C:\Users\Jim\AppData\Roaming\nltk_data...
 [nltk_data]   Package stopwords is already up-to-date!
-Enter GitHub repo URL or local folder path: https://github.com/openai/openai-cookbook
+Enter GitHub repo URL or local folder path: *https://github.com/openai/openai-cookbook*
 Processing apps/web-crawl-q-and-a/web-qa.ipynb...
-C:\Users\Jim\AppData\Local\Programs\Python\Python310\lib\site-packages\nbconvert\filters\strings.py:235: UserWarning: IPython is needed to transform IPython syntax to pure Python. Install ipython if you need this functionality.
-  warnings.warn(
 Processing examples/Classification_using_embeddings.ipynb...
 Processing examples/Clustering.ipynb...
 Processing examples/Clustering_for_transaction_classification.ipynb...
@@ -71,7 +69,7 @@ Processing examples/vector_databases/weaviate/hybrid-search-with-weaviate-and-op
 Processing examples/vector_databases/weaviate/question-answering-with-weaviate-and-openai.ipynb...
 All files processed.
 The input text file has 70580 tokens.
-
+```
 
 
 

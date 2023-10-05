@@ -1,32 +1,38 @@
-
 # Repo-Prep for LLM Ingestion
 
-This is a collection of scripts that can be run together or individually and used to download and prepare a GitHub repository or a local folder of code files for ingestion by a language model. The code files are concatenated into a single file, cleaned to remove stopwords and extra whitespaces, and transformed to lowercase to minimize token usage. Additionally, URLs from the text are extracted and saved separately.
-All scripts are included when you run onefilerepo.py or they can be run individually.
+This is a collection of scripts that download, prepare, and preprocess a GitHub repository or a local folder of code files, or papers from arXiv.org, for ingestion by a language model. The code files are concatenated into a single file, cleaned to remove stopwords and extra whitespaces, and transformed to lowercase to minimize token usage. Additionally, URLs from the text are extracted and saved separately. All scripts are included in `onefilerepo.py` or they can be run individually.
 
-## features
+## Features
 
-- Supports downloading and processing of GitHub repositories or local folders
-- Supports various file types, including Jupyter notebooks
+- Supports downloading and processing of GitHub repositories, arxiv.org papers or local folders
+- Supports various file types, including Jupyter notebooks and PDFs
 - Cleans and preprocesses the text for more efficient language model ingestion
 - Extracts and saves all URLs from the text separately
 - Provides a final token count
 
-## prerequisites
-`pip install requests nbformat nbconvert nltk`
-You will need to generate a Github personal token, they are easy and free.  You need to log into GitHub and go to Settings > Developer settings > Personal access tokens > Generate new token
+## Prerequisites
+
+To install necessary packages, run:
+
+```bash
+pip install requests nbformat nbconvert nltk PyPDF2
+```
+
+To access private repositories on GitHub, you will need to generate a GitHub personal token. Log into GitHub and go to Settings > Developer settings > Personal access tokens > Generate new token.
+
 ## Scripts
 
-### onefilerepo.py
+### `onefilerepo.py`
 
-This script takes a GitHub repository URL or a local folder path as input and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks.  also runs clean.py, urlextractor.py and token counter.
+This script takes a GitHub repository URL, an arXiv abstract URL, or a local folder path as input, and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks and PDFs. The script also runs `clean.py` and `urlextractor.py` scripts, and provides a final token count.
 
-Added ability to supply a Arxiv.org abstract location and have it extract the respective pdf to text.
+Usage:
+```bash
+python onefilerepo.py
+```
 
-usage:
-`python onefilerepo.py`
-Input: URL or Folder location, you can add or omit file types in code if needed.
-Output: "concatenated_files.txt" - text output of all specified files, "output.txt" - cleaned up text with stop words and superfluous characters removed, "links.txt" - a list of all links repo the file, a token count of the final output.txt file
+**Input**: URL or Folder location (You can add or omit file types in code if needed.)  
+**Output**: "concatenated_files.txt" (text output of all specified files), "output.txt" (cleaned up text with stop words and superfluous characters removed), "links.txt" (a list of all links in the repo file), and a token count of the final output.txt file.
 
 ```
 (jim) C:\python\OneFileRepo>onefilerepo.py

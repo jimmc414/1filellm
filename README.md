@@ -21,6 +21,8 @@ You will need to generate a Github personal token, they are easy and free.  You 
 
 This script takes a GitHub repository URL or a local folder path as input and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks.  also runs clean.py, urlextractor.py and token counter.
 
+Added ability to supply a Arxiv.org abstract location and have it extract the respective pdf to text.
+
 usage:
 `python onefilerepo.py`
 Input: URL or Folder location, you can add or omit file types in code if needed.

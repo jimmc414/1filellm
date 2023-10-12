@@ -1,4 +1,5 @@
-# Repo-Prep for LLM Ingestion (Arxiv papers now included)
+# Repo-Prep for LLM Ingestion 
+(Arxiv papers now included as input)
 
 This is a collection of scripts that download, prepare, and preprocess a GitHub repository or a local folder of code files, or papers from arXiv.org, for ingestion by a language model. The code files are concatenated into a single file, cleaned to remove stopwords and extra whitespaces, and transformed to lowercase to minimize token usage. Additionally, URLs from the text are extracted and saved separately. All scripts are included in `onefilerepo.py` or they can be run individually.
 

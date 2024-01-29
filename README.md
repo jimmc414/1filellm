@@ -1,11 +1,11 @@
-# LLM Content Harvester: Your Comprehensive Data Aggregator
+# LLM Content Harvester: Comprehensive Data Aggregator
 
-**LLM Content Harvester** is a tool designed for efficient aggregation and processing of diverse content sources, tailored for easy command line ingestion into large language models (LLMs). Whether it's GitHub repositories, local directories, academic papers, or web pages, this utility simplifies and streamlines data preparation for LLMs.
+**LLM Content Harvester** is a tool designed for efficient aggregation and processing of content sources, for easy command line ingestion into large language models (LLMs). GitHub repositories, local directories, academic papers, or web pages, this utility simplifies and streamlines data preparation for LLMs.
 
 ## Key Features:
 - **LLM Data Aggregation**: Gathers content from Repos, webpages or Arxiv papers into a single text file for ingestion into an LLM.
 - **Github, Local Repo, Web Page and ArXiv Integration**: Facilitates extraction of text from PDFs and arXiv papers.
-- **Sophisticated Text Cleaning**: Implements advanced preprocessing techniques for optimal LLM data processing, outputs a compressed and a non compressed single file with output and automatically copies text into the clipboard for easy pasting into an LLM.
+- **Sophisticated Text Cleaning**: Implements preprocessing techniques for optimal LLM data processing, outputs a compressed and a non compressed single file with output and automatically copies text into the clipboard for easy pasting into an LLM.
 
 
 ## New and Enhanced Features:
@@ -21,8 +21,6 @@
 
 
 ## Prerequisites
-
-In addition to previous requirements, ensure `PyPDF2`, `tiktoken`, and `pyperclip` are installed:
 
 ```bash
 pip install requests nbformat nbconvert nltk PyPDF2 tiktoken pyperclip

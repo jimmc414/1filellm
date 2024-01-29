@@ -1,6 +1,6 @@
 
 # Repo-Prep for LLM Ingestion (Enhanced with Web Crawling)
-(Arxiv papers and web crawling capabilities added)
+
 
 ## Overview
 This utility, `Repo-Prep`, is specifically designed to streamline the process of preparing various types of content for ingestion into large language models (LLMs). It efficiently consolidates content from GitHub repositories, local code repositories, academic papers (specifically from arXiv.org), and web pages into a single text file. This process facilitates easy and efficient ingestion of diverse data sources into LLMs for training or analysis purposes.

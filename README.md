@@ -46,8 +46,8 @@ python 1filellm.py
 ![image](https://github.com/jimmc414/onefilellm/assets/6346529/aac59566-9b31-48b6-aa7b-5f6fd7427f2c)
 
 
-**Input**: GitHub repo URL, arXiv abstract URL, local folder path, or a specific webpage URL.  
-**Output**: "uncompressed_output.txt" (full text output), "compressed_output.txt" (cleaned and compressed text), "processed_urls.txt" (list of all processed URLs for web crawling), and token counts for both output files.
+**Input**: GitHub repo URL (eg https://github.com/jimmc414/onefilellm), arXiv abstract URL (eg https://arxiv.org/abs/2401.14295), local folder path (eg C:\python\PipMyRide), or a specific webpage URL (eg https://llm.datasette.io/en/stable/).  
+**Output**: "uncompressed_output.txt" (full text output; automatically copied into the clipboard), "compressed_output.txt" (cleaned and compressed text), "processed_urls.txt" (list of all processed URLs for web crawling), and token counts for both output files.
 
 ### Additional Scripts
 

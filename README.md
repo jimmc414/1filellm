@@ -1,8 +1,19 @@
 
-# Repo-Prep for LLM Ingestion (Updated with Web Crawling and Enhanced Processing)
-(Arxiv papers and web crawling now included as input)
+# Repo-Prep for LLM Ingestion (Enhanced with Web Crawling)
+(Arxiv papers and web crawling capabilities added)
 
-This enhanced version of the Repo-Prep scripts now includes additional functionalities to download, prepare, and preprocess content from GitHub repositories, local folders of code files, papers from arXiv.org, and web pages for ingestion by a language model. The tool now supports web crawling, processes Jupyter notebooks directly, extracts text from PDFs, and performs advanced text preprocessing. It concatenates code files into a single file, cleans to remove stopwords and extra whitespaces, and transforms to lowercase to minimize token usage. URLs from the text are extracted and saved separately. All scripts are integrated into `1filellm.py`.
+## Overview
+This utility, `Repo-Prep`, is specifically designed to streamline the process of preparing various types of content for ingestion into large language models (LLMs). It efficiently consolidates content from GitHub repositories, local code repositories, academic papers (specifically from arXiv.org), and web pages into a single text file. This process facilitates easy and efficient ingestion of diverse data sources into LLMs for training or analysis purposes.
+
+## Key Functionalities
+- **Content Aggregation**: Seamlessly combines content from multiple sources into a single, unified text file.
+- **Web Crawling**: Adds the capability to crawl web pages and aggregate their content, enhancing the diversity of the input data.
+- **Direct Jupyter Notebook Processing**: Processes Jupyter Notebook files (.ipynb) directly, extracting their code and markdown content.
+- **PDF Text Extraction**: Efficiently extracts text from PDF documents, including direct downloads from arXiv.
+- **Advanced Text Preprocessing**: Cleans the aggregated text by removing stopwords, extra whitespaces, and transforming text to lowercase to minimize token usage.
+- **URL Extraction**: Extracts and separately saves URLs found in the text, allowing for additional context or reference material.
+
+The integration of all these features into the `1filellm.py` script makes Repo-Prep a versatile and powerful tool for preparing data for LLM ingestion. Whether it's for training, fine-tuning, or any other application, Repo-Prep simplifies the data preparation step, allowing you to focus on the more critical aspects of working with LLMs.
 
 ## New Features
 

@@ -16,7 +16,7 @@
 - **Clipboard Convenience**: Uncompressed text is automatically copied to the clipboard.
 
   
-**Input**: 
+**Input Options**: 
 - GitHub repo URL (eg https://github.com/jimmc414/onefilellm)
 - arXiv abstract URL (eg https://arxiv.org/abs/2401.14295)
 - local folder path (eg C:\python\PipMyRide)

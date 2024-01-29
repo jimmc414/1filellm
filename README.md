@@ -55,20 +55,4 @@ The tool generates several output files:
 
 ## Obtaining a GitHub Personal Access Token
 
-[Instructions for obtaining a GitHub Personal Access Token]
 
-## Advanced Features and Customization
-
-### Customization Options
-- [Details on how users can customize the tool, such as setting different levels for web crawling depth, choosing specific file types, etc.]
-
-### Troubleshooting and FAQs
-- [Common issues users might face and their solutions, along with frequently asked questions.]
-
-## Contributing to LLM Content Harvester
-
-We welcome contributions to improve and expand the capabilities of LLM Content Harvester. Please refer to our contribution guidelines for more details.
-
-## License
-
-[Details about the license under which the LLM Content Harvester is released, e.g., MIT, GPL, etc.]

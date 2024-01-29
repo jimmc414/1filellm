@@ -6,15 +6,15 @@
 ## Key Features:
 
 ### Data Aggregation
-- **Sources**: Gather content from **GitHub** repositories, **local repo** directories, **web**-based documentation, and **arXiv papers**.
-- **Integration**: Supports a range of formats, including text from PDFs and arXiv papers.
+- **Sources**: Gather content from **GitHub** repositories, **local repo** directories, **webpages**, and **arXiv papers**.
+- **Integration**: Supports Jupiter Notebook .ipynb and pdf formats.
 
 ### Text Preprocessing
-- **Cleaning and Preprocessing**: Implements techniques to optimize data for LLM processing. Outputs are available in both compressed and uncompressed formats.
-- **Clipboard Integration**: For ease, uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
+- **Cleaning and Preprocessing**: Outputs are generated in both compressed and uncompressed formats.  Compressed output removes stopwords and whitespace and converts to lowercase to minimize token usage.
+- **Clipboard Integration**: Uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
 
 ### Enhanced User Experience
-- **Token Count Metrics**: Get the token counts for both compressed and uncompressed outputs, aiding in effective LLM training.
+- **Token Count Metrics**: Token counts provided for compressed and uncompressed outputs.
 - **Web Crawling**: Extract data from web sources by following links to a specified depth.
 
 

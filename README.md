@@ -3,12 +3,10 @@
 **LLM Content Harvester** is a tool designed for efficient aggregation and processing of diverse content sources, tailored for easy command line ingestion into large language models (LLMs). Whether it's GitHub repositories, local directories, academic papers, or web pages, this utility simplifies and streamlines data preparation for LLMs.
 
 ## Key Features:
-- **Unified Data Aggregation**: Gathers and integrates content from various sources into a single text file.
-- **Smart Web Crawling**: Enhances data diversity by crawling and extracting content from web pages.
-- **Seamless Jupyter Notebook Integration**: Directly processes Jupyter Notebook files, extracting code and markdown.
-- **Robust PDF and ArXiv Integration**: Facilitates extraction of text from PDFs and arXiv papers.
-- **Sophisticated Text Cleaning**: Implements advanced preprocessing techniques for optimal LLM data processing.
-- **Efficient URL Management**: Organizes URLs for additional context or reference.
+- **LLM Data Aggregation**: Gathers content from Repos, webpages or Arxiv papers into a single text file for ingestion into an LLM.
+- **Github, Local Repo, Web Page and ArXiv Integration**: Facilitates extraction of text from PDFs and arXiv papers.
+- **Sophisticated Text Cleaning**: Implements advanced preprocessing techniques for optimal LLM data processing, outputs a compressed and a non compressed single file with output and automatically copies text into the clipboard for easy pasting into an LLM.
+
 
 ## New and Enhanced Features:
 - **Deeper Web Crawling**: Expands web content extraction by following links to a specified depth.

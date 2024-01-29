@@ -35,15 +35,20 @@ python 1filellm.py
 
 **Github:**
 Enter the path or URL for ingestion: 
+```
 https://github.com/jimmc414/document_intelligence
-
+```
 **Local Repo:**
 Enter the path or URL for ingestion:
+```
 C:\python\autoindex
+```
 
 ***Web Page:**
 Enter the path or URL for ingestion:
+```
 https://llm.datasette.io/en/stable/
+```
 
 ![image](https://github.com/jimmc414/onefilellm/assets/6346529/aac59566-9b31-48b6-aa7b-5f6fd7427f2c)
 

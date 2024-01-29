@@ -55,4 +55,28 @@ The tool generates several output files:
 
 ## Obtaining a GitHub Personal Access Token
 
+A GitHub Personal Access Token (PAT) is required to authenticate with the GitHub API and access private repositories. Follow these steps to generate a token:
+
+Log in to your GitHub account and navigate to the Settings page by clicking on your profile picture in the top-right corner and selecting Settings.
+
+In the left sidebar, click on Developer settings.
+
+Click on Personal access tokens in the left sidebar.
+
+Click the Generate new token button.
+
+Enter a descriptive name for the token in the Note field (e.g., "Repo-Prep").
+
+Select the appropriate scopes for the token. For the 1filellm.py script, the minimum required scope is repo (which grants full control of private repositories). You may need to select additional scopes depending on your use case.
+
+Click the Generate token button at the bottom of the page.
+
+Your new personal access token will be displayed. Copy the token and save it somewhere secure, as you won't be able to see it again. If you lose the token, you'll need to generate a new one.
+
+In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token:
+
+'''
+TOKEN = "GITHUB_TOKEN"
+'''
+
 

@@ -1,6 +1,6 @@
 # LLM Content Harvester: Your Comprehensive Data Aggregator
 
-**LLM Content Harvester** is a sophisticated tool designed for efficient aggregation and processing of diverse content sources, tailored for ingestion into large language models (LLMs). Whether it's GitHub repositories, local directories, academic papers, or web pages, this utility simplifies and streamlines data preparation for LLMs.
+**LLM Content Harvester** is a tool designed for efficient aggregation and processing of diverse content sources, tailored for easy command line ingestion into large language models (LLMs). Whether it's GitHub repositories, local directories, academic papers, or web pages, this utility simplifies and streamlines data preparation for LLMs.
 
 ## Key Features:
 - **Unified Data Aggregation**: Gathers and integrates content from various sources into a single text file.

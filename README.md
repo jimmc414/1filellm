@@ -42,16 +42,6 @@ Enter the path or URL for ingestion:
 ### Input Options
 The tool supports various input options, including:
 - GitHub repository URL (e.g., `https://github.com/jimmc414/onefilellm`)
-  - Add Github Personal Access Token to environment variable GITHUB_TOKEN
-    - Windows:
-      ```
-      setx GITHUB_TOKEN "YourGitHubToken"
-      ```
-    - Linux:
-      ```
-      echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
-      source ~/.bashrc
-      ```
 - arXiv abstract URL (e.g., `https://arxiv.org/abs/2401.14295`)
 - Local folder path (e.g., `C:\python\PipMyRide`)
 - Webpage URL (e.g., `https://llm.datasette.io/en/stable/`)
@@ -80,7 +70,18 @@ Select the appropriate scopes for the token. For the 1filellm.py script, the min
 
 Click the Generate token button at the bottom of the page.
 
-In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token or add to the %GITHUB_TOKEN% env variable as detailed above to automatically pull it from your environment.
+In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token or add to the %GITHUB_TOKEN% env variable as detailed to automatically pull it from your environment.
+
+  - Add Github Personal Access Token to environment variable GITHUB_TOKEN
+    - Windows:
+      ```
+      setx GITHUB_TOKEN "YourGitHubToken"
+      ```
+    - Linux:
+      ```
+      echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
+      source ~/.bashrc
+      ```
 
 ## Notes ##
 - For Repos, Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```

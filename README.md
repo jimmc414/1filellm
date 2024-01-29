@@ -1,30 +1,26 @@
+# LLM Content Harvester: Your Comprehensive Data Aggregator
 
-# Repo-Prep for LLM Ingestion (Enhanced with Web Crawling)
+**LLM Content Harvester** is a sophisticated tool designed for efficient aggregation and processing of diverse content sources, tailored for ingestion into large language models (LLMs). Whether it's GitHub repositories, local directories, academic papers, or web pages, this utility simplifies and streamlines data preparation for LLMs.
 
+## Key Features:
+- **Unified Data Aggregation**: Gathers and integrates content from various sources into a single text file.
+- **Smart Web Crawling**: Enhances data diversity by crawling and extracting content from web pages.
+- **Seamless Jupyter Notebook Integration**: Directly processes Jupyter Notebook files, extracting code and markdown.
+- **Robust PDF and ArXiv Integration**: Facilitates extraction of text from PDFs and arXiv papers.
+- **Sophisticated Text Cleaning**: Implements advanced preprocessing techniques for optimal LLM data processing.
+- **Efficient URL Management**: Organizes URLs for additional context or reference.
+
+## New and Enhanced Features:
+- **Deeper Web Crawling**: Expands web content extraction by following links to a specified depth.
+- **Improved PDF and arXiv Processing**: Better extraction accuracy for PDFs and arXiv documents.
+- **Advanced Text Processing**: Refined cleaning and preprocessing for optimized LLM readiness.
+- **Token Count Metrics**: Displays token counts for both compressed and uncompressed outputs.
+- **Clipboard Convenience**: Uncompressed text is automatically copied to the clipboard.
+
+  
 **Input**: GitHub repo URL (eg https://github.com/jimmc414/onefilellm), arXiv abstract URL (eg https://arxiv.org/abs/2401.14295), local folder path (eg C:\python\PipMyRide), or a specific webpage URL (eg https://llm.datasette.io/en/stable/).  
 **Output**: "uncompressed_output.txt" (full text output; automatically copied into the clipboard), "compressed_output.txt" (cleaned and compressed text), "processed_urls.txt" (list of all processed URLs for web crawling), and token counts for both output files.
 
-## Overview
-This utility, `Repo-Prep`, is specifically designed to streamline the process of preparing various types of content for ingestion into large language models (LLMs). It efficiently consolidates content from GitHub repositories, local code repositories, academic papers (specifically from arXiv.org), and web pages into a single text file. This process facilitates easy and efficient ingestion of diverse data sources into LLMs for training or analysis purposes.
-
-## Key Functionalities
-- **Content Aggregation**: Seamlessly combines content from multiple sources into a single, unified text file.
-- **Web Crawling**: Adds the capability to crawl web pages and aggregate their content, enhancing the diversity of the input data.
-- **Direct Jupyter Notebook Processing**: Processes Jupyter Notebook files (.ipynb) directly, extracting their code and markdown content.
-- **PDF Text Extraction**: Efficiently extracts text from PDF documents, including direct downloads from arXiv.
-- **Advanced Text Preprocessing**: Cleans the aggregated text by removing stopwords, extra whitespaces, and transforming text to lowercase to minimize token usage.
-- **URL Extraction**: Extracts and separately saves URLs found in the text, allowing for additional context or reference material.
-
-The integration of all these features into the `1filellm.py` script makes Repo-Prep a versatile and powerful tool for preparing data for LLM ingestion. Whether it's for training, fine-tuning, or any other application, Repo-Prep simplifies the data preparation step, allowing you to focus on the more critical aspects of working with LLMs.
-
-## New Features
-
-- **Web Crawling**: Ability to crawl web pages and extract text, following links to a specified depth.
-- **Direct Jupyter Notebook Processing**: Support for processing Jupyter Notebook files directly without conversion.
-- **Enhanced PDF Processing**: Improved handling of PDF files, including direct download from arXiv URLs.
-- **Advanced Text Preprocessing**: More sophisticated text cleaning and preprocessing for efficiency.
-- **Token Count Calculation**: Provides a token count for both compressed and uncompressed output text.
-- **Automatic Clipboard Copying**: The uncompressed text is now automatically copied to the clipboard for easy use.
 
 ## Prerequisites
 

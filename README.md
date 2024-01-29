@@ -38,6 +38,9 @@ Clone the repository or download the source code. No additional installation is 
 ```bash
 python 1filellm.py
 ```
+```
+Enter the path or URL for ingestion:
+```
 
 ### Input Options
 The tool supports various input options, including:

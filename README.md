@@ -55,7 +55,7 @@ The tool supports various input options, including:
       echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
       source ~/.bashrc
       ```
-  - Modify this line of code to add or exclude filetypes: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```
+  - Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```
 - arXiv abstract URL (e.g., `https://arxiv.org/abs/2401.14295`)
 - Local folder path (e.g., `C:\python\PipMyRide`)
 - Webpage URL (e.g., `https://llm.datasette.io/en/stable/`)

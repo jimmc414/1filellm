@@ -1,6 +1,8 @@
 
 # Repo-Prep for LLM Ingestion (Enhanced with Web Crawling)
 
+**Input**: GitHub repo URL (eg https://github.com/jimmc414/onefilellm), arXiv abstract URL (eg https://arxiv.org/abs/2401.14295), local folder path (eg C:\python\PipMyRide), or a specific webpage URL (eg https://llm.datasette.io/en/stable/).  
+**Output**: "uncompressed_output.txt" (full text output; automatically copied into the clipboard), "compressed_output.txt" (cleaned and compressed text), "processed_urls.txt" (list of all processed URLs for web crawling), and token counts for both output files.
 
 ## Overview
 This utility, `Repo-Prep`, is specifically designed to streamline the process of preparing various types of content for ingestion into large language models (LLMs). It efficiently consolidates content from GitHub repositories, local code repositories, academic papers (specifically from arXiv.org), and web pages into a single text file. This process facilitates easy and efficient ingestion of diverse data sources into LLMs for training or analysis purposes.
@@ -45,13 +47,6 @@ python 1filellm.py
 
 ![image](https://github.com/jimmc414/onefilellm/assets/6346529/aac59566-9b31-48b6-aa7b-5f6fd7427f2c)
 
-
-**Input**: GitHub repo URL (eg https://github.com/jimmc414/onefilellm), arXiv abstract URL (eg https://arxiv.org/abs/2401.14295), local folder path (eg C:\python\PipMyRide), or a specific webpage URL (eg https://llm.datasette.io/en/stable/).  
-**Output**: "uncompressed_output.txt" (full text output; automatically copied into the clipboard), "compressed_output.txt" (cleaned and compressed text), "processed_urls.txt" (list of all processed URLs for web crawling), and token counts for both output files.
-
-### Additional Scripts
-
-The functionalities of `clean.py` and `urlextractor.py` are now integrated into `1filellm.py`.
 
 ## Getting Started
 

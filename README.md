@@ -5,18 +5,18 @@
 
 ## Key Features:
 
-### Comprehensive Data Aggregation
-- **Sources**: Gather content from GitHub repositories, local directories, web-based documentation, and arXiv papers.
+### Data Aggregation
+- **Sources**: Gather content from **GitHub** repositories, **local repo** directories, **web**-based documentation, and **arXiv papers**.
 - **Integration**: Supports a range of formats, including text from PDFs and arXiv papers.
 
-### Advanced Text Processing
+### Text Preprocessing
 - **Cleaning and Preprocessing**: Implements techniques to optimize data for LLM processing. Outputs are available in both compressed and uncompressed formats.
 - **Clipboard Integration**: For ease, uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
 
 ### Enhanced User Experience
 - **Token Count Metrics**: Get the token counts for both compressed and uncompressed outputs, aiding in effective LLM training.
-- **Deeper Web Crawling**: Extract data from web sources by following links to a specified depth.
-- **Improved PDF and arXiv Handling**: Better accuracy and quality in text extraction from PDFs and arXiv documents.
+- **Web Crawling**: Extract data from web sources by following links to a specified depth.
+
 
 ## System Requirements and Installation
 

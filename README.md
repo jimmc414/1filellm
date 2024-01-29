@@ -34,18 +34,26 @@ python 1filellm.py
 ```
 
 **Github:**
-```Enter the path or URL for ingestion: 
+```
+Enter the path or URL for ingestion: 
 
 https://github.com/jimmc414/document_intelligence
 ```
 **Local Repo:**
-```Enter the path or URL for ingestion:
+```
+Enter the path or URL for ingestion:
 
 C:\python\autoindex
 ```
+**Web Page:**
+```
+Enter the path or URL for ingestion:
 
-***Web Page:**
-```Enter the path or URL for ingestion:
+https://arxiv.org/abs/2401.14295
+```
+**Web Page:**
+```
+Enter the path or URL for ingestion:
 
 https://llm.datasette.io/en/stable/
 ```

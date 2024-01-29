@@ -1,98 +1,74 @@
+
 # LLM Content Harvester: Command Line Data Aggregator for LLM Ingestion
 
-**LLM Content Harvester** is a tool designed for efficient aggregation and processing of content sources, for easy command line ingestion into large language models (LLMs). GitHub repositories, local directories, academic papers, or web pages, this utility simplifies and streamlines data preparation for LLMs.
+**LLM Content Harvester** is a powerful and versatile tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). Whether you're dealing with GitHub repositories, local directories, academic papers, or web pages, this utility streamlines the data preparation process for LLMs through an efficient command-line interface.
 
 ## Key Features:
-- **LLM Data Aggregation**: Gathers content from Github Repos, local Repos, web based documentation or Arxiv papers into a single text file for ingestion into an LLM.
-- **Github, Local Repo, Web Page and ArXiv Integration**: Facilitates extraction of text from PDFs and arXiv papers.
-- **Text Cleaning**: Implements preprocessing techniques for optimal LLM data processing, outputs a compressed and a non compressed single file and automatically copies text into the clipboard for easy pasting into an LLM.
 
+### Comprehensive Data Aggregation
+- **Sources**: Seamlessly gather content from GitHub repositories, local directories, web-based documentation, and arXiv papers.
+- **Integration**: Supports a wide range of formats, including text from PDFs and arXiv papers, ensuring flexibility in data sourcing.
 
-## New and Enhanced Features:
-- **Deeper Web Crawling**: Expands web content extraction by following links to a specified depth.
-- **Improved PDF and arXiv Processing**: Better extraction accuracy for PDFs and arXiv documents.
-- **Advanced Text Processing**: Refined cleaning and preprocessing for optimized LLM readiness.
-- **Token Count Metrics**: Displays token counts for both compressed and uncompressed outputs.
-- **Clipboard Convenience**: Uncompressed text is automatically copied to the clipboard.
+### Advanced Text Processing
+- **Cleaning and Preprocessing**: Implements sophisticated techniques to optimize data for LLM processing. Outputs are available in both compressed and uncompressed formats.
+- **Clipboard Integration**: For ease of use, uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
 
-  
-**Input Options**: 
-- GitHub repo URL (eg https://github.com/jimmc414/onefilellm)
-- arXiv abstract URL (eg https://arxiv.org/abs/2401.14295)
-- local folder path (eg C:\python\PipMyRide)
-- webpage URL (eg https://llm.datasette.io/en/stable/).  
+### Enhanced User Experience
+- **Token Count Metrics**: Get immediate feedback on the token counts for both compressed and uncompressed outputs, aiding in effective LLM training.
+- **Deeper Web Crawling**: Extract more comprehensive data from web sources by following links to a specified depth.
+- **Improved PDF and arXiv Handling**: Enjoy better accuracy and quality in text extraction from PDFs and arXiv documents.
 
-**Output**: 
-- "uncompressed_output.txt" (full text output; automatically copied into the clipboard)
-- "compressed_output.txt" (cleaned and compressed text ie- all lowercase, whitespace and stop words removed)
-- "processed_urls.txt" (list of all processed URLs for web crawling)
-- token counts for both output files.
+## System Requirements and Installation
 
-
-## Prerequisites
-
+### Prerequisites
+Before using the LLM Content Harvester, ensure you have the following dependencies installed:
 ```bash
 pip install requests nbformat nbconvert nltk PyPDF2 tiktoken pyperclip
 ```
 
-To access private repositories on GitHub, generate a GitHub personal token as described in the existing README.
+### GitHub Personal Token
+For accessing private repositories on GitHub, generate a GitHub personal token as outlined in the 'Obtaining a GitHub Personal Access Token' section.
 
-## Usage:
+### Installation
+Clone the repository or download the source code. No additional installation is required.
+
+## Usage Instructions
+
+### Basic Command
 ```bash
 python 1filellm.py
 ```
 
-**Github:**
-```
-Enter the path or URL for ingestion: 
+### Input Options
+The tool supports various input options, including:
+- GitHub repository URL (e.g., `https://github.com/jimmc414/onefilellm`)
+- arXiv abstract URL (e.g., `https://arxiv.org/abs/2401.14295`)
+- Local folder path (e.g., `C:\python\PipMyRide`)
+- Webpage URL (e.g., `https://llm.datasette.io/en/stable/`)
 
-https://github.com/jimmc414/document_intelligence
-```
-**Local Repo:**
-```
-Enter the path or URL for ingestion:
-
-C:\python\autoindex
-```
-**ArXiv:**
-```
-Enter the path or URL for ingestion:
-
-https://arxiv.org/abs/2401.14295
-```
-**Web Page:**
-```
-Enter the path or URL for ingestion:
-
-https://llm.datasette.io/en/stable/
-```
-
-![image](https://github.com/jimmc414/onefilellm/assets/6346529/aac59566-9b31-48b6-aa7b-5f6fd7427f2c)
-
+### Output
+The tool generates several output files:
+- `uncompressed_output.txt`: Full text output, automatically copied to the clipboard.
+- `compressed_output.txt`: Cleaned and compressed text (e.g., all lowercase, whitespace and stop words removed).
+- `processed_urls.txt`: List of all processed URLs for web crawling.
+- Token counts for both output files.
 
 ## Obtaining a GitHub Personal Access Token
 
-Obtaining a GitHub Personal Access Token
-A GitHub Personal Access Token (PAT) is required to authenticate with the GitHub API and access private repositories. Follow these steps to generate a token:
+[Instructions for obtaining a GitHub Personal Access Token]
 
-Log in to your GitHub account and navigate to the Settings page by clicking on your profile picture in the top-right corner and selecting Settings.
+## Advanced Features and Customization
 
-In the left sidebar, click on Developer settings.
+### Customization Options
+- [Details on how users can customize the tool, such as setting different levels for web crawling depth, choosing specific file types, etc.]
 
-Click on Personal access tokens in the left sidebar.
+### Troubleshooting and FAQs
+- [Common issues users might face and their solutions, along with frequently asked questions.]
 
-Click the Generate new token button.
+## Contributing to LLM Content Harvester
 
-Enter a descriptive name for the token in the Note field (e.g., "Repo-Prep").
+We welcome contributions to improve and expand the capabilities of LLM Content Harvester. Please refer to our contribution guidelines for more details.
 
-Select the appropriate scopes for the token. For the 1filellm.py script, the minimum required scope is repo (which grants full control of private repositories). You may need to select additional scopes depending on your use case.
+## License
 
-Click the Generate token button at the bottom of the page.
-
-Your new personal access token will be displayed. Copy the token and save it somewhere secure, as you won't be able to see it again. If you lose the token, you'll need to generate a new one.
-
-In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token:
-
-'''
-TOKEN = "GITHUB_TOKEN"
-'''
+[Details about the license under which the LLM Content Harvester is released, e.g., MIT, GPL, etc.]

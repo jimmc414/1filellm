@@ -1,22 +1,22 @@
 
 # LLM Content Harvester: Command Line Data Aggregator for LLM Ingestion
 
-**LLM Content Harvester** is a powerful and versatile tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). Whether you're dealing with GitHub repositories, local directories, academic papers, or web pages, this utility streamlines the data preparation process for LLMs through an efficient command-line interface.
+**LLM Content Harvester** is a tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). Whether you're dealing with GitHub repositories, local directories, academic papers, or web pages, this utility processes the data into text for LLMs through an efficient command-line interface.
 
 ## Key Features:
 
 ### Comprehensive Data Aggregation
-- **Sources**: Seamlessly gather content from GitHub repositories, local directories, web-based documentation, and arXiv papers.
-- **Integration**: Supports a wide range of formats, including text from PDFs and arXiv papers, ensuring flexibility in data sourcing.
+- **Sources**: Gather content from GitHub repositories, local directories, web-based documentation, and arXiv papers.
+- **Integration**: Supports a range of formats, including text from PDFs and arXiv papers.
 
 ### Advanced Text Processing
-- **Cleaning and Preprocessing**: Implements sophisticated techniques to optimize data for LLM processing. Outputs are available in both compressed and uncompressed formats.
-- **Clipboard Integration**: For ease of use, uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
+- **Cleaning and Preprocessing**: Implements techniques to optimize data for LLM processing. Outputs are available in both compressed and uncompressed formats.
+- **Clipboard Integration**: For ease, uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
 
 ### Enhanced User Experience
-- **Token Count Metrics**: Get immediate feedback on the token counts for both compressed and uncompressed outputs, aiding in effective LLM training.
-- **Deeper Web Crawling**: Extract more comprehensive data from web sources by following links to a specified depth.
-- **Improved PDF and arXiv Handling**: Enjoy better accuracy and quality in text extraction from PDFs and arXiv documents.
+- **Token Count Metrics**: Get the token counts for both compressed and uncompressed outputs, aiding in effective LLM training.
+- **Deeper Web Crawling**: Extract data from web sources by following links to a specified depth.
+- **Improved PDF and arXiv Handling**: Better accuracy and quality in text extraction from PDFs and arXiv documents.
 
 ## System Requirements and Installation
 

@@ -59,6 +59,7 @@ The tool supports various input options, including:
 - arXiv abstract URL (e.g., `https://arxiv.org/abs/2401.14295`)
 - Local folder path (e.g., `C:\python\PipMyRide`)
 - Webpage URL (e.g., `https://llm.datasette.io/en/stable/`)
+  - Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
 
 ### Output
 The tool generates several output files:
@@ -87,7 +88,7 @@ Click the Generate token button at the bottom of the page.
 
 Your new personal access token will be displayed. Copy the token and save it somewhere secure, as you won't be able to see it again. If you lose the token, you'll need to generate a new one.
 
-In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token:
+In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token or add to the %GITHUB_TOKEN% env variable as detailed above:
 
 '''
 TOKEN = "GITHUB_TOKEN"

@@ -6,17 +6,14 @@
 ## Key Features:
 
 ### Data Aggregation
-- **Sources**: Gather content from **GitHub** repositories, **local repo** directories, **webpages**, and **arXiv papers**.
+- **Sources**: Extract text from **GitHub** repositories, **local repo** directories, **webpages**, and **arXiv papers**.
 - **Integration**: Supports Jupiter Notebook .ipynb and pdf formats.
+- **Web Crawling**: Extract data from web sources by following links to a specified depth.
 
 ### Text Preprocessing
 - **Cleaning and Preprocessing**: Outputs are generated in both compressed and uncompressed formats.  Compressed output removes stopwords and whitespace and converts to lowercase to minimize token usage.
 - **Clipboard Integration**: Uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
-
-### Enhanced User Experience
 - **Token Count Metrics**: Token counts provided for compressed and uncompressed outputs.
-- **Web Crawling**: Extract data from web sources by following links to a specified depth.
-
 
 ## System Requirements and Installation
 
@@ -41,7 +38,7 @@ python 1filellm.py
 ```
 Enter the path or URL for ingestion:
 ```
-
+  
 ### Input Options
 The tool supports various input options, including:
 - GitHub repository URL (e.g., `https://github.com/jimmc414/onefilellm`)
@@ -55,17 +52,15 @@ The tool supports various input options, including:
       echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
       source ~/.bashrc
       ```
-  - Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```
 - arXiv abstract URL (e.g., `https://arxiv.org/abs/2401.14295`)
 - Local folder path (e.g., `C:\python\PipMyRide`)
 - Webpage URL (e.g., `https://llm.datasette.io/en/stable/`)
-  - Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
 
 ### Output
 - `uncompressed_output.txt`: Full text output, automatically copied to the clipboard.
 - `compressed_output.txt`: Cleaned and compressed text (e.g., all lowercase, whitespace and stop words removed).
 - `processed_urls.txt`: List of all processed URLs for web crawling.
-- Token counts for both output files (to console).
+- To console: Token counts for both output files.
 
 ## Obtaining a GitHub Personal Access Token
 
@@ -79,18 +74,15 @@ Click on Personal access tokens in the left sidebar.
 
 Click the Generate new token button.
 
-Enter a descriptive name for the token in the Note field (e.g., "Repo-Prep").
+Enter a name for the token in the Note field (e.g., "Repo-Prep").
 
 Select the appropriate scopes for the token. For the 1filellm.py script, the minimum required scope is repo (which grants full control of private repositories). You may need to select additional scopes depending on your use case.
 
 Click the Generate token button at the bottom of the page.
 
-Your new personal access token will be displayed. Copy the token and save it somewhere secure, as you won't be able to see it again. If you lose the token, you'll need to generate a new one.
+In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token or add to the %GITHUB_TOKEN% env variable as detailed above to automatically pull it from your environment.
 
-In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token or add to the %GITHUB_TOKEN% env variable as detailed above:
-
-'''
-TOKEN = "GITHUB_TOKEN"
-'''
-
+## Notes ##
+- For Repos, Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```
+- For Web scraping, Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
 

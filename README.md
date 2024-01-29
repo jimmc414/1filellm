@@ -24,7 +24,7 @@
 
 **Output**: 
 - "uncompressed_output.txt" (full text output; automatically copied into the clipboard)
-- "compressed_output.txt" (cleaned and compressed text)
+- "compressed_output.txt" (cleaned and compressed text ie- all lowercase, whitespace and stop words removed)
 - "processed_urls.txt" (list of all processed URLs for web crawling)
 - token counts for both output files.
 

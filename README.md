@@ -45,7 +45,7 @@ Enter the path or URL for ingestion:
 
 C:\python\autoindex
 ```
-**Web Page:**
+**ArXiv:**
 ```
 Enter the path or URL for ingestion:
 

@@ -18,7 +18,7 @@
 ## System Requirements and Installation
 
 ### Prerequisites
-Before using the LLM Content Harvester, ensure you have the following dependencies installed:
+Before using the LLM Content Collector, ensure you have the following dependencies installed:
 ```bash
 pip install requests nbformat nbconvert nltk PyPDF2 tiktoken pyperclip
 ```

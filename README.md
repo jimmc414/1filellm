@@ -17,16 +17,16 @@
 
   
 **Input**: 
--GitHub repo URL (eg https://github.com/jimmc414/onefilellm)
--arXiv abstract URL (eg https://arxiv.org/abs/2401.14295)
--local folder path (eg C:\python\PipMyRide)
--webpage URL (eg https://llm.datasette.io/en/stable/).  
+- GitHub repo URL (eg https://github.com/jimmc414/onefilellm)
+- arXiv abstract URL (eg https://arxiv.org/abs/2401.14295)
+- local folder path (eg C:\python\PipMyRide)
+- webpage URL (eg https://llm.datasette.io/en/stable/).  
 
 **Output**: 
--"uncompressed_output.txt" (full text output; automatically copied into the clipboard)
--"compressed_output.txt" (cleaned and compressed text)
--"processed_urls.txt" (list of all processed URLs for web crawling)
--token counts for both output files.
+- "uncompressed_output.txt" (full text output; automatically copied into the clipboard)
+- "compressed_output.txt" (cleaned and compressed text)
+- "processed_urls.txt" (list of all processed URLs for web crawling)
+- token counts for both output files.
 
 
 ## Prerequisites

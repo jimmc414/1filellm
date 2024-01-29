@@ -46,10 +46,15 @@ Enter the path or URL for ingestion:
 The tool supports various input options, including:
 - GitHub repository URL (e.g., `https://github.com/jimmc414/onefilellm`)
   - Add Github Personal Access Token to environment variable GITHUB_TOKEN
-    - Windows: ``` setx GITHUB_TOKEN "YourGitHubToken" ```
-    - Linux: ``` echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
-                 source ~/.bashrc ```
-
+    - Windows:
+      ```
+      setx GITHUB_TOKEN "YourGitHubToken"
+      ```
+    - Linux:
+      ```
+      echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
+      source ~/.bashrc
+      ```
 - arXiv abstract URL (e.g., `https://arxiv.org/abs/2401.14295`)
 - Local folder path (e.g., `C:\python\PipMyRide`)
 - Webpage URL (e.g., `https://llm.datasette.io/en/stable/`)

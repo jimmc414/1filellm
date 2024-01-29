@@ -1,139 +1,48 @@
-# Repo-Prep for LLM Ingestion 
-(Arxiv papers now included as input)
 
-This is a collection of scripts that download, prepare, and preprocess a GitHub repository or a local folder of code files, or papers from arXiv.org, for ingestion by a language model. The code files are concatenated into a single file, cleaned to remove stopwords and extra whitespaces, and transformed to lowercase to minimize token usage. Additionally, URLs from the text are extracted and saved separately. All scripts are included in `onefilerepo.py` or they can be run individually.
+# Repo-Prep for LLM Ingestion (Updated with Web Crawling and Enhanced Processing)
+(Arxiv papers and web crawling now included as input)
 
-## Features
+This enhanced version of the Repo-Prep scripts now includes additional functionalities to download, prepare, and preprocess content from GitHub repositories, local folders of code files, papers from arXiv.org, and web pages for ingestion by a language model. The tool now supports web crawling, processes Jupyter notebooks directly, extracts text from PDFs, and performs advanced text preprocessing. It concatenates code files into a single file, cleans to remove stopwords and extra whitespaces, and transforms to lowercase to minimize token usage. URLs from the text are extracted and saved separately. All scripts are integrated into `1filellm.py`.
 
-- Supports downloading and processing of GitHub repositories, arxiv.org papers or local folders
-- Supports various file types, including Jupyter notebooks and PDFs
-- Cleans and preprocesses the text for more efficient language model ingestion
-- Extracts and saves all URLs from the text separately
-- Provides a final token count
+## New Features
+
+- **Web Crawling**: Ability to crawl web pages and extract text, following links to a specified depth.
+- **Direct Jupyter Notebook Processing**: Support for processing Jupyter Notebook files directly without conversion.
+- **Enhanced PDF Processing**: Improved handling of PDF files, including direct download from arXiv URLs.
+- **Advanced Text Preprocessing**: More sophisticated text cleaning and preprocessing for efficiency.
+- **Token Count Calculation**: Provides a token count for both compressed and uncompressed output text.
+- **Automatic Clipboard Copying**: The uncompressed text is now automatically copied to the clipboard for easy use.
 
 ## Prerequisites
 
-To install necessary packages, run:
+In addition to previous requirements, ensure `PyPDF2`, `tiktoken`, and `pyperclip` are installed:
 
 ```bash
-pip install requests nbformat nbconvert nltk PyPDF2
+pip install requests nbformat nbconvert nltk PyPDF2 tiktoken pyperclip
 ```
 
-To access private repositories on GitHub, you will need to generate a GitHub personal token. Log into GitHub and go to Settings > Developer settings > Personal access tokens > Generate new token.
+To access private repositories on GitHub, generate a GitHub personal token as described in the existing README.
 
-## Scripts
+## Script Update: `1filellm.py`
 
-### `onefilerepo.py`
-
-This script takes a GitHub repository URL, an arXiv abstract URL, or a local folder path as input, and processes the files by concatenating them into a single output file. It supports various file types, including Jupyter notebooks and PDFs. The script also runs `clean.py` and `urlextractor.py` scripts, and provides a final token count.
+Replaces `onefilerepo.py`, now handling web crawling, direct Jupyter Notebook processing, and improved PDF handling. Also includes a function for automatic clipboard copying.
 
 Usage:
 ```bash
-python onefilerepo.py
+python 1filellm.py
 ```
 
-**Input**: URL or Folder location (You can add or omit file types in code if needed.)  
-**Output**: "concatenated_files.txt" (text output of all specified files), "output.txt" (cleaned up text with stop words and superfluous characters removed), "links.txt" (a list of all links in the repo file), and a token count of the final output.txt file.
+**Input**: GitHub repo URL, arXiv abstract URL, local folder path, or a specific webpage URL.  
+**Output**: "uncompressed_output.txt" (full text output), "compressed_output.txt" (cleaned and compressed text), "processed_urls.txt" (list of all processed URLs for web crawling), and token counts for both output files.
 
-```
-(jim) C:\python\OneFileRepo>onefilerepo.py
-[nltk_data] Downloading package stopwords to
-[nltk_data]     C:\Users\Jim\AppData\Roaming\nltk_data...
-[nltk_data]   Package stopwords is already up-to-date!
-Enter GitHub repo URL or local folder path: https://github.com/openai/openai-cookbook
-Processing apps/web-crawl-q-and-a/web-qa.ipynb...
-Processing examples/Classification_using_embeddings.ipynb...
-Processing examples/Clustering.ipynb...
-Processing examples/Clustering_for_transaction_classification.ipynb...
-Processing examples/Code_search.ipynb...
-Processing examples/Customizing_embeddings.ipynb...
-Processing examples/Embedding_long_inputs.ipynb...
-Processing examples/Entity_extraction_for_long_documents.ipynb...
-Processing examples/Fine-tuned_classification.ipynb...
-Processing examples/Get_embeddings.ipynb...
-Processing examples/How_to_count_tokens_with_tiktoken.ipynb...
-Processing examples/How_to_format_inputs_to_ChatGPT_models.ipynb...
-Processing examples/How_to_handle_rate_limits.ipynb...
-Processing examples/How_to_stream_completions.ipynb...
-Processing examples/Multiclass_classification_for_transactions.ipynb...
-Processing examples/Obtain_dataset.ipynb...
-Processing examples/Question_answering_using_embeddings.ipynb...
-Processing examples/Recommendation_using_embeddings.ipynb...
-Processing examples/Regression_using_embeddings.ipynb...
-Processing examples/Semantic_text_search_using_embeddings.ipynb...
-Processing examples/Unit_test_writing_using_a_multi-step_prompt.ipynb...
-Processing examples/User_and_product_embeddings.ipynb...
-Processing examples/Visualizing_embeddings_in_2D.ipynb...
-Processing examples/Visualizing_embeddings_in_3D.ipynb...
-Processing examples/Visualizing_embeddings_in_W&B.ipynb...
-Processing examples/Zero-shot_classification_with_embeddings.ipynb...
-Processing examples/azure/completions.ipynb...
-Processing examples/azure/embeddings.ipynb...
-Processing examples/azure/finetuning.ipynb...
-Processing examples/book_translation/translate_latex_book.ipynb...
-Processing examples/dalle/Image_generations_edits_and_variations_with_DALL-E.ipynb...
-Processing examples/fine-tuned_qa/olympics-1-collect-data.ipynb...
-Processing examples/fine-tuned_qa/olympics-2-create-qa.ipynb...
-Processing examples/fine-tuned_qa/olympics-3-train-qa.ipynb...
-Processing examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb...
-Processing examples/vector_databases/pinecone/Gen_QA.ipynb...
-Processing examples/vector_databases/qdrant/Getting_started_with_Qdrant_and_OpenAI.ipynb...
-Processing examples/vector_databases/qdrant/QA_with_Langchain_Qdrant_and_OpenAI.ipynb...
-Processing examples/vector_databases/redis/getting-started-with-redis-and-openai.ipynb...
-Processing examples/vector_databases/weaviate/getting-started-with-weaviate-and-openai.ipynb...
-Processing examples/vector_databases/weaviate/hybrid-search-with-weaviate-and-openai.ipynb...
-Processing examples/vector_databases/weaviate/question-answering-with-weaviate-and-openai.ipynb...
-All files processed.
-The input text file has 70580 tokens.
-```
+### Additional Scripts
 
-
-
-### clean.py
-
-This script takes an input file, preprocesses the text by removing stopwords, extra whitespaces, and carriage returns, and converts the text to lowercase to minimize token usage.
-
-Usage:
-`python clean.py`
-
-### urlextractor.py
-
-This script takes an input file and extracts all URLs from the text, saving them into a separate output file.
-
-Usage:
-`python urlextractor.py`
+The functionalities of `clean.py` and `urlextractor.py` are now integrated into `1filellm.py`.
 
 ## Getting Started
 
-Clone or download the repository.
-Install the required libraries:
+Follow the existing setup instructions. Replace references to `onefilerepo.py` with `1filellm.py` and ensure all additional dependencies are installed.
 
-You can install all required libraries in a single line using the following command:
+## Obtaining a GitHub Personal Access Token
 
-`pip install requests nbformat nbconvert nltk`
-
-Simply run this command in your terminal or command prompt to install the necessary libraries for the scripts.
-
-
-Obtaining a GitHub Personal Access Token
-A GitHub Personal Access Token (PAT) is required to authenticate with the GitHub API and access private repositories. Follow these steps to generate a token:
-
-Log in to your GitHub account and navigate to the Settings page by clicking on your profile picture in the top-right corner and selecting Settings.
-
-In the left sidebar, click on Developer settings.
-
-Click on Personal access tokens in the left sidebar.
-
-Click the Generate new token button.
-
-Enter a descriptive name for the token in the Note field (e.g., "Repo-Prep").
-
-Select the appropriate scopes for the token. For the onefilerepo.py script, the minimum required scope is repo (which grants full control of private repositories). You may need to select additional scopes depending on your use case.
-
-Click the Generate token button at the bottom of the page.
-
-Your new personal access token will be displayed. Copy the token and save it somewhere secure, as you won't be able to see it again. If you lose the token, you'll need to generate a new one.
-
-In the onefilerepo.py script, replace the GITHUB_PERSONAL_TOKEN placeholder with your actual token:
-
-TOKEN = "GITHUB_PERSONAL_TOKEN"
+(No changes in this section.)

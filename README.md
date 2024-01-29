@@ -1,7 +1,7 @@
 
 # LLM Content Harvester: Command Line Data Aggregator for LLM Ingestion
 
-**LLM Content Harvester** is a tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). Whether you're dealing with GitHub repositories, local directories, academic papers, or web pages, this utility processes the data into text for LLMs through an efficient command-line interface.
+**LLM Content Harvester** is a tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). GitHub repositories, local directories, academic papers, and web pages are processed into text for LLMs through an efficient command-line interface.
 
 ## Key Features:
 
@@ -62,11 +62,10 @@ The tool supports various input options, including:
   - Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
 
 ### Output
-The tool generates several output files:
 - `uncompressed_output.txt`: Full text output, automatically copied to the clipboard.
 - `compressed_output.txt`: Cleaned and compressed text (e.g., all lowercase, whitespace and stop words removed).
 - `processed_urls.txt`: List of all processed URLs for web crawling.
-- Token counts for both output files.
+- Token counts for both output files (to console).
 
 ## Obtaining a GitHub Personal Access Token
 

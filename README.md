@@ -5,7 +5,7 @@
 ## Key Features:
 - **LLM Data Aggregation**: Gathers content from Github Repos, local Repos, web based documentation or Arxiv papers into a single text file for ingestion into an LLM.
 - **Github, Local Repo, Web Page and ArXiv Integration**: Facilitates extraction of text from PDFs and arXiv papers.
-- **Sophisticated Text Cleaning**: Implements preprocessing techniques for optimal LLM data processing, outputs a compressed and a non compressed single file with output and automatically copies text into the clipboard for easy pasting into an LLM.
+- **Text Cleaning**: Implements preprocessing techniques for optimal LLM data processing, outputs a compressed and a non compressed single file with output and automatically copies text into the clipboard for easy pasting into an LLM.
 
 
 ## New and Enhanced Features:

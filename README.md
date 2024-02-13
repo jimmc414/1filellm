@@ -6,7 +6,7 @@
 ## Key Features:
 
 ### Data Aggregation
-- **Sources**: Extract text from **GitHub** repositories, **local repo** directories, **webpages**, and **arXiv papers**.
+- **Sources**: Extract text from **GitHub** repositories, **local repo** directories, **webpages**, **Youtube transcripts**, and **arXiv papers**.
 - **Integration**: Supports Jupiter Notebook .ipynb and pdf formats.
 - **Web Crawling**: Extract data from web sources by following links to a specified depth.
 
@@ -20,7 +20,7 @@
 ### Prerequisites
 Before using the LLM Content Collector, ensure you have the following dependencies installed:
 ```bash
-pip install requests nbformat nbconvert nltk PyPDF2 tiktoken pyperclip bs4
+pip install requests nbformat nbconvert nltk PyPDF2 tiktoken pyperclip bs4 youtube_transcript_api 
 ```
 
 ### GitHub Personal Token
@@ -44,6 +44,7 @@ The tool supports various input options, including:
 - GitHub repository URL (e.g., `https://github.com/jimmc414/onefilellm`)
 - arXiv abstract URL (e.g., `https://arxiv.org/abs/2401.14295`)
 - Local folder path (e.g., `C:\python\PipMyRide`)
+- Youtube video URL (e.g., `https://www.youtube.com/watch?v=KZ_NlnmPQYk`)
 - Webpage URL (e.g., `https://llm.datasette.io/en/stable/`)
 
 ### Output

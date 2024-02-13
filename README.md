@@ -3,7 +3,7 @@
 
 **LLM Content Collector** is a tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). GitHub repositories, local directories, academic papers, Youtube transcripts and web pages are processed into text for LLMs through an efficient command-line interface.
 
-## Key Features:
+## Features:
 
 ### Data Aggregation
 - **Sources**: Extract text from **GitHub** repositories, **local repo** directories, **webpages**, **Youtube transcripts**, and **arXiv papers**.
@@ -11,9 +11,9 @@
 - **Web Crawling**: Extract data from web sources by following links to a specified depth.
 
 ### Text Preprocessing
-- **Cleaning and Preprocessing**: Outputs are generated in both compressed and uncompressed formats.  Compressed output removes stopwords and whitespace and converts to lowercase to minimize token usage.
-- **Clipboard Integration**: Uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
-- **Token Count Metrics**: Token counts provided for compressed and uncompressed outputs.
+- **Preprocessing**: Outputs are generated in both compressed and uncompressed formats.  Compressed output removes stopwords and whitespace and converts to lowercase to minimize token usage.
+- **Clipboard**: Uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
+- **Token Counts**: Token counts provided for compressed and uncompressed outputs.
 
 ## System Requirements and Installation
 
@@ -29,7 +29,7 @@ For accessing private repositories on GitHub, generate a GitHub personal token a
 ### Installation
 Clone the repository or download the source code. No additional installation is required.
 
-## Usage Instructions
+## Usage 
 
 ### Basic Command
 ```bash

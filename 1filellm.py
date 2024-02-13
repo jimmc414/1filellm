@@ -10,6 +10,8 @@ import re
 from pathlib import Path
 import nbformat
 from nbconvert import PythonExporter
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.formatters import TextFormatter
 import pyperclip
 
 def safe_file_read(filepath, fallback_encoding='latin1'):
@@ -36,7 +38,7 @@ def download_file(url, target_path):
         f.write(response.content)
 
 def is_allowed_filetype(filename):
-    allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
+    allowed_extensions = ['.py', '.txt', '.pdf', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.xxxx', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
     return any(filename.endswith(ext) for ext in allowed_extensions)
 
 def process_ipynb_file(temp_file):
@@ -147,6 +149,45 @@ def extract_links(input_file, output_file):
         for url in urls:
             output.write(url + '\n')
 
+def fetch_youtube_transcript(url):
+    """
+    Fetches and returns the transcript for a YouTube video URL.
+
+    Parameters:
+    - url (str): The full URL of the YouTube video.
+
+    Returns:
+    - str: The transcript of the video as a single string.
+    """
+    def extract_video_id(url):
+        """
+        Extracts the video ID from a YouTube URL.
+
+        Parameters:
+        - url (str): The URL of the YouTube video.
+
+        Returns:
+        - str: The YouTube video ID or None if not found.
+        """
+        import re
+        pattern = r'(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})'
+        match = re.search(pattern, url)
+        if match:
+            return match.group(1)
+        return None
+
+    video_id = extract_video_id(url)
+    if not video_id:
+        return "Error: Could not extract video ID from URL."
+
+    try:
+        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+        formatter = TextFormatter()
+        transcript = formatter.format_transcript(transcript_list)
+        return transcript
+    except Exception as e:
+        return f"Error: {str(e)}"
+
 def preprocess_text(input_file, output_file):
     with open(input_file, "r", encoding="utf-8") as input_file:
         input_text = input_file.read()
@@ -166,7 +207,7 @@ def preprocess_text(input_file, output_file):
 def get_token_count(text):
     enc = tiktoken.get_encoding("cl100k_base")
 
-    # Adjust the tiktoken configuration to ignore certain special tokens
+    # Modify the disallowed_special set to exclude the empty string ''
     disallowed_special = enc.special_tokens_set - {''}
     tokens = enc.encode(text, disallowed_special=disallowed_special)
 
@@ -274,7 +315,15 @@ def main():
     elif "arxiv.org" in input_path:
         process_arxiv_pdf(input_path, output_file)
     elif urlparse(input_path).scheme in ["http", "https"]:
-        crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs)
+        if "youtube.com" in input_path or "youtu.be" in input_path:
+            transcript = fetch_youtube_transcript(input_path)
+            with open(output_file, "w", encoding='utf-8') as output:
+                output.write(f"# YouTube Video Transcript\n")
+                output.write(f"# URL: {input_path}\n\n")
+                output.write(transcript)
+            print("YouTube video transcript processed.")
+        else:
+            crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs)
     else:
         process_local_folder(input_path, output_file)
 

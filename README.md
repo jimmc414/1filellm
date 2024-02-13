@@ -1,7 +1,7 @@
 
 # LLM Content Collector: Command Line Data Aggregator for LLM Ingestion
 
-**LLM Content Collector** is a tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). GitHub repositories, local directories, academic papers, and web pages are processed into text for LLMs through an efficient command-line interface.
+**LLM Content Collector** is a tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). GitHub repositories, local directories, academic papers, Youtube transcripts and web pages are processed into text for LLMs through an efficient command-line interface.
 
 ## Key Features:
 

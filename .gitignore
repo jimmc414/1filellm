@@ -1,0 +1,94 @@
+# Outputs
+*_output.txt
+processed_urls.txt
+
+# Env
+.env
+
+# Editors
+.project
+.settings
+.springBeans
+**/.favorites.json
+**/.idea
+**/.vscode
+**/*.Session.vim
+**/*.sw[a-z]
+**/*.vim
+**/*.zwc
+**/*~
+
+# OS generated files
+**/._*
+**/.AppleDouble
+**/.dccache
+**/.dropbox
+**/.dropbox.attr
+**/.dropbox.cache
+**/.DS_Store
+**/.DS_STORE
+**/.lnk
+**/.LSOverride
+**/$RECYCLE.BIN/
+**/Desktop.ini
+**/ehthumbs.db
+**/Thumbs.db
+
+# Files that might appear in the root of a volume
+**/.com.apple.timemachine.donotpresent
+**/.DocumentRevisions-V100
+**/.fseventsd
+**/.Spotlight-V100
+**/.TemporaryItems
+**/.Trashes
+**/.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+**/.apdisk
+**/.AppleDB
+**/.AppleDesktop
+**/Network Trash Folder
+**/Temporary Items
+
+# Temp files
+**/.temp
+**/.tmp
+tmp/
+
+# Files that commonly contain secrets
+**/*.key
+**/*.pem
+**/*.pfx
+**/*.p12
+**/*.jks
+**/*.keystore
+**/*.pkcs12
+**/*.pkcs8
+**/*.pkpass
+**/*.secrets
+
+# Logs
+**/*.log
+
+# Build directories
+**/_build/
+**/dist
+build/
+out/
+target/
+
+# Python
+__pycache__/
+__pypackages__/
+.ipynb_checkpoints
+*$py.class
+celerybeat-schedule
+develop-eggs/
+dmypy.json
+eggs/
+ipython_config.py
+local_settings.py
+pip-delete-this-directory.txt
+pip-log.txt
+pip-wheel-metadata/
+venv

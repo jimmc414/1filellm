@@ -45,7 +45,7 @@ To run the automated tests, follow these steps:
 The test results will indicate whether each test case passed or failed. If a test case fails, the console output will provide information about the failure, including the specific assertion that failed and the line number where the failure occurred.
 
 A successful test run will output something similar to:
-
+```
 Testing GitHub repository processing...
 GitHub repository processing test passed.
 
@@ -65,7 +65,7 @@ Webpage crawling and text extraction test passed.
 Ran 5 tests in X.XXXs
 
 OK
-
+```
 If any tests fail, the output will indicate which tests failed and provide details about the failures.
 
 ## Modifying the Tests

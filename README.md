@@ -112,3 +112,7 @@ In the onefilellm.py script, replace the GITHUB_TOKEN placeholder with your actu
 - For Web scraping, Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
 
 ![image](https://github.com/jimmc414/1filellm/assets/6346529/5ef47d3f-e154-439e-a828-5b40a123a19c)
+
+## Script Name Change
+
+Please note that the main script name has been changed from `1filellm.py` to `onefilellm.py`. This change was made to adhere to Python naming conventions and improve clarity. The functionality of the script remains the same, and you can use `onefilellm.py` instead of `1filellm.py` in all the commands and instructions mentioned in this README.

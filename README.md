@@ -48,7 +48,7 @@ Clone the repository or download the source code. No additional installation is 
 ### Basic Command
 
 ```bash
-python 1filellm.py
+python onefilellm.py
 ```
 
 ```plaintext
@@ -86,11 +86,11 @@ Click the Generate new token button.
 
 Enter a name for the token in the Note field (e.g., "Repo-Prep").
 
-Select the appropriate scopes for the token. For the 1filellm.py script, the minimum required scope is repo (which grants full control of private repositories). You may need to select additional scopes depending on your use case.
+Select the appropriate scopes for the token. For the onefilellm.py script, the minimum required scope is repo (which grants full control of private repositories). You may need to select additional scopes depending on your use case.
 
 Click the Generate token button at the bottom of the page.
 
-In the 1filellm.py script, replace the GITHUB_TOKEN placeholder with your actual token or add to the %GITHUB_TOKEN% env variable as detailed to automatically pull it from your environment.
+In the onefilellm.py script, replace the GITHUB_TOKEN placeholder with your actual token or add to the %GITHUB_TOKEN% env variable as detailed to automatically pull it from your environment.
 
 - Add Github Personal Access Token to environment variable GITHUB_TOKEN
   - Windows:

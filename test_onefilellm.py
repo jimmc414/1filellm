@@ -36,7 +36,7 @@ class TestDataAggregation(unittest.TestCase):
 
     def test_local_folder(self):
         print("\nTesting local folder processing...")
-        local_path = "C:\\python\\onefilellm"
+        local_path = "C:\\python\\1filellm"
         process_local_folder(local_path, self.output_file)
         self.assertTrue(os.path.exists(self.output_file))
         with open(self.output_file, "r", encoding="utf-8") as file:

@@ -8,7 +8,7 @@ onefilellm is a command-line tool that aggregates and preprocesses data from var
 - Support for local files and/or directories, GitHub repositories, academic papers from ArXiv, YouTube transcripts, web page documentation, Sci-Hub hosted papers via DOI or PMID
 - Handling of multiple file formats, including Jupyter Notebooks (.ipynb), and PDFs
 - Web crawling functionality to extract content from linked pages up to a specified depth
-- Integration with Sci-Hub for automatic downloading of research papers using DOIs and PMIDs
+- Integration with Sci-Hub for automatic downloading of research papers using DOIs or PMIDs
 - Text preprocessing, including compressed and uncompressed outputs, stopword removal, and lowercase conversion
 - Automatic copying of uncompressed text to the clipboard for easy pasting into LLMs
 - Token count reporting for both compressed and uncompressed outputs

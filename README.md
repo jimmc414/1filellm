@@ -47,7 +47,7 @@ Run the script using the following command:
 python onefilellm.py
 ```
 
-At the prompt, enter the path, URL, DOI, or PMID of the data source you want to process:
+At the prompt, enter the file or folder path, Documenation, Paper or Repo URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
 
 ```plaintext
 Enter the local or remote path, URL, DOI, or PMID for ingestion:

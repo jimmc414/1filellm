@@ -1,6 +1,6 @@
 # onefilellm: Command Line Data Aggregation Tool for LLM Ingestion
 
-onefilellm is a command-line tool that aggregates and preprocesses data from various sources for ingestion into large language models (LLMs).
+onefilellm is a command-line tool that aggregates and preprocesses data from various sources into one text file and the clipboard for easier ingestion into large language models (LLMs).
 
 ## Features
 

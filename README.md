@@ -1,33 +1,29 @@
+# onefilellm: Command Line Data Aggregation Tool for LLM Ingestion
 
-# Command Line Data Aggregator for LLM Ingestion
-
-This is a tool designed to simplify the aggregation and preprocessing of various data sources for ingestion into large language models (LLMs). GitHub repositories, local directories, academic papers, YouTube transcripts and web pages are processed into text for LLMs through an efficient command-line interface.
+onefilellm is a command-line tool that aggregates and preprocesses data from various sources for ingestion into large language models (LLMs).
 
 ## Features
 
-### Data Aggregation
+- Automatic source type detection based on provided path, URL, or identifier
+- Support for local files and/or directories, GitHub repositories, academic papers from ArXiv, BiorXiv, and MedXiv, YouTube transcripts, web page documentation, DOIs or PMIDs for Sci-Hub hosted papers
+- Handling of multiple file formats, including Jupyter Notebooks (.ipynb), PDFs, .Xlsx and Compiled HTML Help (.chm) files
+- Web crawling functionality to extract content from linked pages up to a specified depth
+- Integration with Sci-Hub for automatic downloading of research papers using DOIs and PMIDs
+- Text preprocessing, including compressed and uncompressed outputs, stopword removal, and lowercase conversion
+- Automatic copying of uncompressed text to the clipboard for easy pasting into LLMs
+- Token count reporting for both compressed and uncompressed outputs
 
-- **Sources**: Extract text from **GitHub** repositories, **local repo** directories, **webpages**, **YouTube transcripts**, and **arXiv papers**.
-- **Integration**: Supports Jupiter Notebook .ipynb and pdf formats.
-- **Web Crawling**: Extract data from web sources by following links to a specified depth.
-
-### Text Preprocessing
-
-- **Preprocessing**: Outputs are generated in both compressed and uncompressed formats.  Compressed output removes stopwords and whitespace and converts to lowercase to minimize token usage.
-- **Clipboard**: Uncompressed text is automatically copied to the clipboard, ready for pasting into an LLM.
-- **Token Counts**: Token counts provided for compressed and uncompressed outputs.
-
-## System Requirements and Installation
+## Installation
 
 ### Prerequisites
 
-Before using, ensure you have the following dependencies installed:
+Install the required dependencies:
 
 ```bash
 pip install -U -r requirements.txt
 ```
 
-You may also wish to create a virtual environment to manage dependencies:
+Optionally, create a virtual environment for isolation:
 
 ```bash
 python -m venv .venv
@@ -35,84 +31,75 @@ source .venv/bin/activate
 pip install -U -r requirements.txt
 ```
 
-### GitHub Personal Token
+### GitHub Personal Access Token
 
-For accessing private repositories on GitHub, generate a GitHub personal token as outlined in the 'Obtaining a GitHub Personal Access Token' section.
+To access private GitHub repositories, generate a personal access token as described in the 'Obtaining a GitHub Personal Access Token' section.
 
-### Installation
+### Setup
 
-Clone the repository or download the source code. No additional installation is required.
+Clone the repository or download the source code.
 
 ## Usage
 
-### Basic Command
+Run the script using the following command:
 
 ```bash
 python onefilellm.py
 ```
 
+At the prompt, enter the path, URL, DOI, or PMID of the data source you want to process:
+
 ```plaintext
-Enter the path or URL for ingestion:
+Enter the path, URL, DOI, or PMID for ingestion:
 ```
 
-### Input Options
+The tool supports the following input options:
 
-The tool supports various input options, including:
+- Local file path (e.g., `C:\documents\report.pdf`)
+- Local directory path (e.g., `C:\projects\research`)
+- GitHub repository URL (e.g., `https://github.com/username/repo`)
+- ArXiv/BiorXiv/MedXiv paper URL (e.g., `https://arxiv.org/abs/2401.14295`)
+- YouTube video URL (e.g., `https://www.youtube.com/watch?v=video_id`)
+- Webpage URL (e.g., `https://example.com/page`)
+- DOI (Digital Object Identifier) (e.g., `10.1234/example.doi`)
+- PMID (PubMed Identifier) (e.g., `12345678`)
 
-- GitHub repository URL (e.g., `https://github.com/jimmc414/onefilellm`)
-- arXiv abstract URL (e.g., `https://arxiv.org/abs/2401.14295`)
-- Local folder path (e.g., `C:\python\PipMyRide`)
-- YouTube video URL (e.g., `https://www.youtube.com/watch?v=KZ_NlnmPQYk`)
-- Webpage URL (e.g., `https://llm.datasette.io/en/stable/`)
+The script generates the following output files:
 
-### Output
+- `uncompressed_output.txt`: The full text output, automatically copied to the clipboard.
+- `compressed_output.txt`: Cleaned and compressed text.
+- `processed_urls.txt`: A list of all processed URLs during web crawling.
 
-- `uncompressed_output.txt`: Full text output, automatically copied to the clipboard.
-- `compressed_output.txt`: Cleaned and compressed text (e.g., all lowercase, whitespace and stop words removed).
-- `processed_urls.txt`: List of all processed URLs for web crawling.
-- To console: Token counts for both output files.
+## Configuration
+
+- To modify the allowed file types for repository processing, update the `allowed_extensions` list in the code.
+- To change the depth of web crawling, adjust the `max_depth` variable in the code.
 
 ## Obtaining a GitHub Personal Access Token
 
-A GitHub Personal Access Token (PAT) is required to authenticate with the GitHub API and access private repositories. Follow these steps to generate a token:
+To access private GitHub repositories, you need a personal access token. Follow these steps:
 
-Log in to your GitHub account and navigate to the Settings page by clicking on your profile picture in the top-right corner and selecting Settings.
+1. Log in to your GitHub account and go to Settings.
+2. Navigate to Developer settings > Personal access tokens.
+3. Click on "Generate new token" and provide a name.
+4. Select the necessary scopes (at least `repo` for private repositories).
+5. Click "Generate token" and copy the token value.
 
-In the left sidebar, click on Developer settings.
+In the `onefilellm.py` script, replace `GITHUB_TOKEN` with your actual token or set it as an environment variable:
 
-Click on Personal access tokens in the left sidebar.
+- For Windows:
+  ```shell
+  setx GITHUB_TOKEN "YourGitHubToken"
+  ```
 
-Click the Generate new token button.
-
-Enter a name for the token in the Note field (e.g., "Repo-Prep").
-
-Select the appropriate scopes for the token. For the onefilellm.py script, the minimum required scope is repo (which grants full control of private repositories). You may need to select additional scopes depending on your use case.
-
-Click the Generate token button at the bottom of the page.
-
-In the onefilellm.py script, replace the GITHUB_TOKEN placeholder with your actual token or add to the %GITHUB_TOKEN% env variable as detailed to automatically pull it from your environment.
-
-- Add Github Personal Access Token to environment variable GITHUB_TOKEN
-  - Windows:
-
-      ```shell
-      setx GITHUB_TOKEN "YourGitHubToken"
-      ```
-
-  - Linux:
-
-      ```shell
-      echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
-      source ~/.bashrc
-      ```
+- For Linux:
+  ```shell
+  echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
+  source ~/.bashrc
+  ```
 
 ## Notes
 
-- For Repos, Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```
-- For Web scraping, Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
+- Token counts are displayed in the console for both output files.
 
-![image](https://github.com/jimmc414/1filellm/assets/6346529/5ef47d3f-e154-439e-a828-5b40a123a19c)
-
-## Script Name Change
-
-Please note that the main script name has been changed from `1filellm.py` to `onefilellm.py`. This change was made to adhere to Python naming conventions and improve clarity. The functionality of the script remains the same, and you can use `onefilellm.py` instead of `1filellm.py` in all the commands and instructions mentioned in this README.
+If you encounter any issues or have suggestions for improvements, please open an issue on the GitHub repository.

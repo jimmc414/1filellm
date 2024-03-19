@@ -5,8 +5,8 @@ onefilellm is a command-line tool that aggregates and preprocesses data from var
 ## Features
 
 - Automatic source type detection based on provided path, URL, or identifier
-- Support for local files and/or directories, GitHub repositories, academic papers from ArXiv, BiorXiv, and MedXiv, YouTube transcripts, web page documentation, Sci-Hub hosted papers via DOI or PMID
-- Handling of multiple file formats, including Jupyter Notebooks (.ipynb), PDFs, .Xlsx and Compiled HTML Help (.chm) files
+- Support for local files and/or directories, GitHub repositories, academic papers from ArXiv, YouTube transcripts, web page documentation, Sci-Hub hosted papers via DOI or PMID
+- Handling of multiple file formats, including Jupyter Notebooks (.ipynb), and PDFs
 - Web crawling functionality to extract content from linked pages up to a specified depth
 - Integration with Sci-Hub for automatic downloading of research papers using DOIs and PMIDs
 - Text preprocessing, including compressed and uncompressed outputs, stopword removal, and lowercase conversion
@@ -58,7 +58,7 @@ The tool supports the following input options:
 - Local file path (e.g., `C:\documents\report.pdf`)
 - Local directory path (e.g., `C:\projects\research`) -> (files of selected filetypes segmented into one flat text file) 
 - GitHub repository URL  (e.g., `https://github.com/username/repo`) -> (Repo files of selected filetypes segmented into one flat text file)
-- ArXiv/BiorXiv/MedXiv paper URL (e.g., `https://arxiv.org/abs/2401.14295`) -> (Full paper PDF to text file)
+- ArXiv paper URL (e.g., `https://arxiv.org/abs/2401.14295`) -> (Full paper PDF to text file)
 - YouTube video URL (e.g., `https://www.youtube.com/watch?v=video_id`) -> (Video transcript to text file)
 - Webpage URL  (e.g., `https://example.com/page` | `https://example.com/page/page.pdf`) -> (To scrape pages to x depth or remote file in segmented text file)
 - Sci-Hub Paper DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., `10.1234/example.doi` | `10.1234/example.doi`) -> (Full paper PDF to text file)

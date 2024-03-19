@@ -56,13 +56,13 @@ Enter the local or remote path, URL, DOI, or PMID for ingestion:
 The tool supports the following input options:
 
 - Local file path (e.g., `C:\documents\report.pdf`)
-- Local directory path (files of selected filetypes segmented into one flat text file) (e.g., `C:\projects\research`)
-- GitHub repository URL (Repo files of selected filetypes segmented into one flat text file) (e.g., `https://github.com/username/repo`)
-- ArXiv/BiorXiv/MedXiv paper URL (For full paper PDF) (e.g., `https://arxiv.org/abs/2401.14295`)
-- YouTube video URL (To collect transcript) (e.g., `https://www.youtube.com/watch?v=video_id`)
-- Webpage URL (To scrape pages to x depth or remote file ) (e.g., `https://example.com/page` | `https://example.com/page/page.pdf`)
-- DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., `10.1234/example.doi` | `10.1234/example.doi`)
-- PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., `12345678`)
+- Local directory path (e.g., `C:\projects\research`) -> (files of selected filetypes segmented into one flat text file) 
+- GitHub repository URL  (e.g., `https://github.com/username/repo`) -> (Repo files of selected filetypes segmented into one flat text file)
+- ArXiv/BiorXiv/MedXiv paper URL (e.g., `https://arxiv.org/abs/2401.14295`) -> (Full paper PDF to text file)
+- YouTube video URL (e.g., `https://www.youtube.com/watch?v=video_id`) -> (Video transcript to text file)
+- Webpage URL  (e.g., `https://example.com/page` | `https://example.com/page/page.pdf`) -> (To scrape pages to x depth or remote file in segmented text file)
+- DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., `10.1234/example.doi` | `10.1234/example.doi`) -> (Full paper PDF to text file)
+- PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., `12345678`) -> (Full paper PDF to text file)
 
 The script generates the following output files:
 

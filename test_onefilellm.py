@@ -2,7 +2,7 @@ import unittest
 import os
 import tempfile
 import shutil
-from onefilellm import process_github_repo, process_arxiv_pdf, process_local_folder, fetch_youtube_transcript, crawl_and_extract_text
+from onefilellm import process_github_repo, process_arxiv_pdf, process_local_folder, fetch_youtube_transcript, crawl_and_extract_text, process_doi_or_pmid
 
 class TestDataAggregation(unittest.TestCase):
     def setUp(self):
@@ -65,6 +65,26 @@ class TestDataAggregation(unittest.TestCase):
             content = file.read()
             self.assertGreater(len(content), 0)
         print("Webpage crawling and text extraction test passed.")
+
+    def test_process_doi(self):
+        print("\nTesting DOI processing...")
+        doi = "10.1053/j.ajkd.2017.08.002"
+        process_doi_or_pmid(doi, self.output_file)
+        self.assertTrue(os.path.exists(self.output_file))
+        with open(self.output_file, "r", encoding="utf-8") as file:
+            content = file.read()
+            self.assertGreater(len(content), 0)
+        print("DOI processing test passed.")
+
+    def test_process_pmid(self):
+        print("\nTesting PMID processing...")
+        pmid = "29203127"
+        process_doi_or_pmid(pmid, self.output_file)
+        self.assertTrue(os.path.exists(self.output_file))
+        with open(self.output_file, "r", encoding="utf-8") as file:
+            content = file.read()
+            self.assertGreater(len(content), 0)
+        print("PMID processing test passed.")
 
 if __name__ == "__main__":
     unittest.main()

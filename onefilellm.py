@@ -13,6 +13,9 @@ from nbconvert import PythonExporter
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.formatters import TextFormatter
 import pyperclip
+import wget
+from tqdm import tqdm
+from time import sleep
 
 def safe_file_read(filepath, fallback_encoding='latin1'):
     try:
@@ -38,8 +41,7 @@ def download_file(url, target_path):
         f.write(response.content)
 
 def is_allowed_filetype(filename):
-#    allowed_extensions = ['.py', '.txt', '.pdf', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.xxxx', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
-    allowed_extensions = ['.py', '.txt', '.cmd', '.sh', '.md', '.ipynb', '.sql']
+    allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml', '.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
     return any(filename.endswith(ext) for ext in allowed_extensions)
 
 def process_ipynb_file(temp_file):
@@ -151,26 +153,7 @@ def extract_links(input_file, output_file):
             output.write(url + '\n')
 
 def fetch_youtube_transcript(url):
-    """
-    Fetches and returns the transcript for a YouTube video URL.
-
-    Parameters:
-    - url (str): The full URL of the YouTube video.
-
-    Returns:
-    - str: The transcript of the video as a single string.
-    """
     def extract_video_id(url):
-        """
-        Extracts the video ID from a YouTube URL.
-
-        Parameters:
-        - url (str): The URL of the YouTube video.
-
-        Returns:
-        - str: The YouTube video ID or None if not found.
-        """
-        import re
         pattern = r'(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})'
         match = re.search(pattern, url)
         if match:
@@ -207,28 +190,20 @@ def preprocess_text(input_file, output_file):
 
 def get_token_count(text):
     enc = tiktoken.get_encoding("cl100k_base")
-
-    # Modify the disallowed_special set to exclude the empty string ''
     disallowed_special = enc.special_tokens_set - {''}
     tokens = enc.encode(text, disallowed_special=disallowed_special)
-
     return len(tokens)
 
 def is_same_domain(base_url, new_url):
     return urlparse(base_url).netloc == urlparse(new_url).netloc
 
 def is_within_depth(base_url, current_url, max_depth):
-    """
-    Check if the current URL is within the desired depth of the base URL.
-    """
     base_parts = urlparse(base_url).path.rstrip('/').split('/')
     current_parts = urlparse(current_url).path.rstrip('/').split('/')
 
-    # Check if the current URL starts with the base URL path
     if current_parts[:len(base_parts)] != base_parts:
         return False
 
-    # Check the depth
     return len(current_parts) - len(base_parts) <= max_depth
 
 def process_pdf(url):
@@ -255,7 +230,7 @@ def crawl_and_extract_text(base_url, output_file, urls_list_file, max_depth, inc
 
     while urls_to_visit:
         current_url, current_depth = urls_to_visit.pop(0)
-        clean_url = current_url.split('#')[0]  # Ignore URL fragments
+        clean_url = current_url.split('#')[0]
 
         if clean_url not in visited_urls and is_same_domain(base_url, clean_url) and is_within_depth(base_url, clean_url, max_depth):
             if ignore_epubs and clean_url.endswith('.epub'):
@@ -303,8 +278,51 @@ def crawl_and_extract_text(base_url, output_file, urls_list_file, max_depth, inc
 
     return all_text
 
+def process_doi_or_pmid(identifier, output_file):
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36',
+        'Connection': 'keep-alive'
+    }
+
+    try:
+        payload = {
+            'sci-hub-plugin-check': '',
+            'request': identifier
+        }
+
+        base_url = 'https://sci-hub.se/'
+        response = requests.post(base_url, headers=headers, data=payload, timeout=60)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        content = soup.find(id='pdf').get('src').replace('#navpanes=0&view=FitH', '').replace('//', '/')
+
+        if content.startswith('/downloads'):
+            pdf_url = 'https://sci-hub.se' + content
+        elif content.startswith('/tree'):
+            pdf_url = 'https://sci-hub.se' + content
+        elif content.startswith('/uptodate'):
+            pdf_url = 'https://sci-hub.se' + content
+        else:
+            pdf_url = 'https:/' + content
+
+        pdf_filename = f"{identifier.replace('/', '-')}.pdf"
+        wget.download(pdf_url, pdf_filename)
+
+        with open(pdf_filename, 'rb') as pdf_file:
+            pdf_reader = PdfReader(pdf_file)
+            text = ""
+            for page in range(len(pdf_reader.pages)):
+                text += pdf_reader.pages[page].extract_text()
+
+        with open(output_file, "w", encoding='utf-8') as output:
+            output.write(text)
+
+        os.remove(pdf_filename)
+        print(f"Identifier {identifier} processed successfully.")
+    except Exception as e:
+        print(f"Error processing identifier {identifier}: {str(e)}")
+
 def main():
-    input_path = input("Enter the path or URL for ingestion: ")
+    input_path = input("Enter the path, URL, DOI, or PMID for ingestion: ")
     output_file = "uncompressed_output.txt"
     urls_list_file = "processed_urls.txt"
     max_depth = 2
@@ -325,6 +343,8 @@ def main():
             print("YouTube video transcript processed.")
         else:
             crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs)
+    elif input_path.startswith("10.") and "/" in input_path or input_path.isdigit():
+        process_doi_or_pmid(input_path, output_file)
     else:
         process_local_folder(input_path, output_file)
 
@@ -333,13 +353,12 @@ def main():
 
     compressed_text = safe_file_read(processed_file)
     compressed_token_count = get_token_count(compressed_text)
-    print("Compressed Token Count:", compressed_token_count)  # Debug print
+    print("Compressed Token Count:", compressed_token_count)
 
     uncompressed_text = safe_file_read(output_file)
     uncompressed_token_count = get_token_count(uncompressed_text)
-    print("Uncompressed Token Count:", uncompressed_token_count)  # Debug print
+    print("Uncompressed Token Count:", uncompressed_token_count)
 
-    # Directly copy the uncompressed text to the clipboard
     pyperclip.copy(uncompressed_text)
     print(f"compressed_output.txt and uncompressed_output.txt have been created in the working directory. Contents of {output_file} have been copied to the clipboard.")
 

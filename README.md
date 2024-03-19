@@ -61,8 +61,8 @@ The tool supports the following input options:
 - ArXiv paper URL (e.g., `https://arxiv.org/abs/2401.14295`) -> (Full paper PDF to text file)
 - YouTube video URL (e.g., `https://www.youtube.com/watch?v=video_id`) -> (Video transcript to text file)
 - Webpage URL  (e.g., `https://example.com/page` | `https://example.com/page/page.pdf`) -> (To scrape pages to x depth or remote file in segmented text file)
-- Sci-Hub Paper DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., `10.1234/example.doi` | `10.1234/example.doi`) -> (Full paper PDF to text file)
-- Sci-Hub Paper PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., `12345678`) -> (Full paper PDF to text file)
+- Sci-Hub Paper DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., `10.1234/example.doi`) -> (Full Sci-Hub paper PDF to text file)
+- Sci-Hub Paper PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., `12345678`) -> (Full Sci-Hub paper PDF to text file)
 
 The script generates the following output files:
 

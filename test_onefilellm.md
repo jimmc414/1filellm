@@ -1,3 +1,6 @@
+Here's the updated `README.md` for the test program to reflect the changes:
+
+```markdown
 # Automated Testing for onefilellm.py
 
 This README provides information about the automated testing script for the `onefilellm.py` data aggregation tool.
@@ -11,6 +14,8 @@ The purpose of the automated testing script is to ensure that the `onefilellm.py
 - Local folder
 - YouTube transcript
 - Webpage crawling
+- Sci-Hub paper using DOI
+- Sci-Hub paper using PMID
 
 ## Test Suite
 
@@ -21,6 +26,8 @@ The test suite is implemented using Python's built-in `unittest` module. It cons
 3. `test_local_folder`: Tests the processing of a local folder.
 4. `test_youtube_transcript`: Tests the fetching of a YouTube video transcript.
 5. `test_webpage_crawl`: Tests the crawling and text extraction from a webpage.
+6. `test_process_doi`: Tests the processing of a Sci-Hub paper using a DOI.
+7. `test_process_pmid`: Tests the processing of a Sci-Hub paper using a PMID.
 
 Each test case verifies that the corresponding function in `onefilellm.py` produces the expected output files and that the content of the output files is not empty.
 
@@ -61,8 +68,14 @@ YouTube transcript fetching test passed.
 Testing webpage crawling and text extraction...
 Webpage crawling and text extraction test passed.
 
+Testing DOI processing...
+DOI processing test passed.
+
+Testing PMID processing...
+PMID processing test passed.
+
 ----------------------------------------------------------------------
-Ran 5 tests in X.XXXs
+Ran 7 tests in X.XXXs
 
 OK
 ```
@@ -81,3 +94,7 @@ If you encounter any issues while running the tests, consider the following:
 - Make sure you have the latest version of the required dependencies installed.
 - Ensure that the input sources used in the tests (e.g., GitHub repository, arXiv PDF, local folder) are accessible and contain the expected content.
 - Double-check that the file paths and URLs used in the tests are correct and valid.
+- Ensure you have a stable internet connection for tests that involve downloading content from external sources like Sci-Hub.
+```
+
+These changes to the `README.md` file reflect the addition of the two new test cases for processing Sci-Hub papers using DOIs and PMIDs. The updated README provides information about the new test cases, their purpose, and how to run them as part of the automated testing suite.

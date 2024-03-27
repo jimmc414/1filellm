@@ -1,6 +1,10 @@
 # Outputs
 *_output.txt
 processed_urls.txt
+output/
+
+# Input data
+input/
 
 # Env
 .env
@@ -92,3 +96,4 @@ pip-delete-this-directory.txt
 pip-log.txt
 pip-wheel-metadata/
 venv
+.venv

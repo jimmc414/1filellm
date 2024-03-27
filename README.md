@@ -64,11 +64,22 @@ The tool supports the following input options:
 - Sci-Hub Paper DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., `10.1234/example.doi`) -> (Full Sci-Hub paper PDF to text file)
 - Sci-Hub Paper PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., `12345678`) -> (Full Sci-Hub paper PDF to text file)
 
-The script generates the following output files:
 
-- `uncompressed_output.txt`: The full text output, automatically copied to the clipboard.
-- `compressed_output.txt`: Cleaned and compressed text.
-- `processed_urls.txt`: A list of all processed URLs during web crawling.
+The script generates the following output files in a subdirectory named after the input source, following the naming convention `{base_name}_{token_count}_{type}.txt` where `{type}` is either `full` for uncompressed or `min` for compressed output:
+
+- `{base_name}_full_output.txt`: Contains the full text output, which is also automatically copied to the clipboard.
+- `{base_name}_min_output.txt`: Contains cleaned and compressed text.
+- `{base_name}_processed_urls.txt`: Lists all URLs processed during web crawling, if applicable.
+
+The output files are located within a dynamically named subdirectory under the `output` folder, structured as follows:
+
+```
+output/
+    |- <input_source_name>/
+        |- <input_source_name>_<token_count>_full.txt
+        |- <input_source_name>_<token_count>_min.txt
+        |- <input_source_name>_processed_urls.txt
+```
 
 ## Configuration
 
@@ -98,8 +109,13 @@ In the `onefilellm.py` script, replace `GITHUB_TOKEN` with your actual token or 
   source ~/.bashrc
   ```
 
+- .env file:
+Create a .env file in the root directory of the project and add the following line:
+  ```GITHUB_TOKEN=YourGitHubToken
+  ```
+
 ## Notes
-- For Repos, Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```
+- For Repos, Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.ts', '.tsx', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```
 - For Web scraping, Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
 - Token counts are displayed in the console for both output files.
 

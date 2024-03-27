@@ -223,15 +223,20 @@ def process_pdf(url):
     os.remove('temp.pdf')
     return ' '.join(text)
 
-def crawl_and_extract_text(base_url, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs):
+def crawl_and_extract_text(base_url, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs, exclude_paths):
     visited_urls = set()
     urls_to_visit = [(base_url, 0)]
     processed_urls = []
     all_text = ""
+    exclude_list = [path.strip() for path in exclude_paths.split(',') if path.strip()]
 
     while urls_to_visit:
         current_url, current_depth = urls_to_visit.pop(0)
         clean_url = current_url.split('#')[0]
+
+        # Check against the exclude list; skip if any match is found
+        if any(exclude in clean_url for exclude in exclude_list):
+            continue
 
         if clean_url not in visited_urls and is_same_domain(base_url, clean_url) and is_within_depth(base_url, clean_url, max_depth):
             if ignore_epubs and clean_url.endswith('.epub'):
@@ -349,6 +354,9 @@ def get_base_name(input_path):
 
 def main():
     input_path = input("Enter the path, URL, DOI, or PMID for ingestion: ")
+    max_depth = int(input("Enter the maximum depth for crawling (e.g., 2 for shallow, 5+ for deep): "))
+    exclude_paths = input("Enter a comma-separated list of paths to exclude: ")
+
     base_name = get_base_name(input_path)
     subdirectory = f"./output/{base_name}"
     os.makedirs(subdirectory, exist_ok=True)
@@ -356,7 +364,7 @@ def main():
     urls_list_file = os.path.join(subdirectory, f"{base_name}_processed_urls.txt")
     processed_file = os.path.join(subdirectory, f"{base_name}_min_output.txt")
 
-    max_depth = 2
+    # max_depth = 7
     include_pdfs = True
     ignore_epubs = True
 
@@ -373,7 +381,7 @@ def main():
                 output.write(transcript)
             print("YouTube video transcript processed.")
         else:
-            crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs)
+            crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs, exclude_paths)
     elif input_path.startswith("10.") and "/" in input_path or input_path.isdigit():
         process_doi_or_pmid(input_path, output_file)
     else:

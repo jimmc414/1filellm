@@ -16,6 +16,8 @@ import pyperclip
 import wget
 from tqdm import tqdm
 from time import sleep
+from dotenv import load_dotenv
+load_dotenv()
 
 def safe_file_read(filepath, fallback_encoding='latin1'):
     try:
@@ -28,20 +30,15 @@ def safe_file_read(filepath, fallback_encoding='latin1'):
 nltk.download("stopwords")
 stop_words = set(stopwords.words("english"))
 
-TOKEN = os.getenv('GITHUB_TOKEN', 'default_token_here')
-if TOKEN == 'default_token_here':
-    raise EnvironmentError("GITHUB_TOKEN environment variable not set.")
 
-headers = {"Authorization": f"token {TOKEN}"}
-
-def download_file(url, target_path):
-    response = requests.get(url, headers=headers)
+def download_file(url, target_path, headers):
+    response = requests.get(url, headers)
     response.raise_for_status()
     with open(target_path, "wb") as f:
         f.write(response.content)
 
 def is_allowed_filetype(filename):
-    allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml', '.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
+    allowed_extensions = ['.tsx', '.ts', '.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml', '.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
     return any(filename.endswith(ext) for ext in allowed_extensions)
 
 def process_ipynb_file(temp_file):
@@ -52,8 +49,8 @@ def process_ipynb_file(temp_file):
     python_code, _ = exporter.from_notebook_node(nbformat.reads(notebook_content, as_version=4))
     return python_code
 
-def process_directory(url, output):
-    response = requests.get(url, headers=headers)
+def process_directory(url, output, headers):
+    response = requests.get(url, headers)
     response.raise_for_status()
     files = response.json()
 
@@ -62,7 +59,7 @@ def process_directory(url, output):
             print(f"Processing {file['path']}...")
 
             temp_file = f"temp_{file['name']}"
-            download_file(file["download_url"], temp_file)
+            download_file(file["download_url"], temp_file, headers)
 
             output.write(f"# {'-' * 3}\n")
             output.write(f"# Filename: {file['path']}\n")
@@ -77,7 +74,7 @@ def process_directory(url, output):
             output.write("\n\n")
             os.remove(temp_file)
         elif file["type"] == "dir":
-            process_directory(file["url"], output)
+            process_directory(file["url"], output, headers)
 
 def process_local_directory(local_path, output):
     for root, dirs, files in os.walk(local_path):
@@ -100,6 +97,10 @@ def process_local_directory(local_path, output):
                 output.write("\n\n")
 
 def process_github_repo(repo_url, output_file):
+    TOKEN = os.getenv('GITHUB_TOKEN', 'default_token_here')
+    if TOKEN == 'default_token_here':
+        raise EnvironmentError("GITHUB_TOKEN environment variable not set.")
+    headers = {"Authorization": f"token {TOKEN}"}
     api_base_url = "https://api.github.com/repos/"
     repo_url_parts = repo_url.split("https://github.com/")[-1].split("/")
     repo_name = "/".join(repo_url_parts[:2])
@@ -113,7 +114,7 @@ def process_github_repo(repo_url, output_file):
         contents_url = f"{contents_url}/{subdirectory}"
 
     with open(output_file, "w", encoding='utf-8') as output:
-        process_directory(contents_url, output)
+        process_directory(contents_url, output, headers)
     print("All files processed.")
 
 def process_local_folder(local_path, output_file):
@@ -320,11 +321,41 @@ def process_doi_or_pmid(identifier, output_file):
         print(f"Identifier {identifier} processed successfully.")
     except Exception as e:
         print(f"Error processing identifier {identifier}: {str(e)}")
+def get_base_name(input_path):
+    """
+    Extracts a base name from the input path.
+    For a local directory, it uses the folder name.
+    For a GitHub URL, it uses 'gh-repo' where 'repo' is the repo name.
+    For any other URL, it uses 'hostname-subpath'.
+    """
+    if "github.com" in input_path:
+        # For GitHub repositories, extract the repo name
+        repo_name = input_path.split("/")[-1]
+        base_name = f"gh-{repo_name}"
+    elif urlparse(input_path).scheme in ["http", "https"]:
+        # For URLs, use hostname and subpath
+        url_parts = urlparse(input_path)
+        subpath = url_parts.path.replace('/', '-').strip("-")
+        domain = url_parts.netloc
+        site = ((url_parts.hostname).split(".")[0])
+        base_name = f"{site}-{subpath}"
+    else:
+        # For local directories, use the folder name
+        base_name = os.path.basename(os.path.normpath(input_path))
+    
+    # Ensure base_name does not contain illegal characters for filenames
+    base_name = re.sub(r'[^a-zA-Z0-9\-_]', '_', base_name)
+    return base_name
 
 def main():
     input_path = input("Enter the path, URL, DOI, or PMID for ingestion: ")
-    output_file = "uncompressed_output.txt"
-    urls_list_file = "processed_urls.txt"
+    base_name = get_base_name(input_path)
+    subdirectory = f"./output/{base_name}"
+    os.makedirs(subdirectory, exist_ok=True)
+    output_file = os.path.join(subdirectory, f"{base_name}_full_output.txt")
+    urls_list_file = os.path.join(subdirectory, f"{base_name}_processed_urls.txt")
+    processed_file = os.path.join(subdirectory, f"{base_name}_min_output.txt")
+
     max_depth = 2
     include_pdfs = True
     ignore_epubs = True
@@ -348,19 +379,20 @@ def main():
     else:
         process_local_folder(input_path, output_file)
 
-    processed_file = "compressed_output.txt"
     preprocess_text(output_file, processed_file)
 
-    compressed_text = safe_file_read(processed_file)
-    compressed_token_count = get_token_count(compressed_text)
-    print("Compressed Token Count:", compressed_token_count)
+    min_text = safe_file_read(processed_file)
+    min_token_count = get_token_count(min_text)
+    print("min Token Count:", min_token_count)
 
-    uncompressed_text = safe_file_read(output_file)
-    uncompressed_token_count = get_token_count(uncompressed_text)
-    print("Uncompressed Token Count:", uncompressed_token_count)
-
-    pyperclip.copy(uncompressed_text)
-    print(f"compressed_output.txt and uncompressed_output.txt have been created in the working directory. Contents of {output_file} have been copied to the clipboard.")
+    full_text = safe_file_read(output_file)
+    full_token_count = get_token_count(full_text)
+    print("full Token Count:", full_token_count)
+    # rename output to tokenCount_output
+    os.rename(output_file, f"{subdirectory}/{base_name}_{full_token_count}_full.txt")
+    os.rename(processed_file, f"{subdirectory}/{base_name}_{min_token_count}_min.txt")
+    # pyperclip.copy(full_text)
+    print(f"Minified and full text saved to ./output/. Contents of {output_file} have been copied to the clipboard.")
 
 if __name__ == "__main__":
     main()

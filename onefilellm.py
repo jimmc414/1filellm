@@ -293,7 +293,12 @@ def process_doi_or_pmid(identifier, output_file):
         base_url = 'https://sci-hub.se/'
         response = requests.post(base_url, headers=headers, data=payload, timeout=60)
         soup = BeautifulSoup(response.content, 'html.parser')
-        content = soup.find(id='pdf').get('src').replace('#navpanes=0&view=FitH', '').replace('//', '/')
+        pdf_element = soup.find(id='pdf')
+
+        if pdf_element is None:
+            raise ValueError(f"No PDF found for identifier {identifier}. Sci-hub might be inaccessible or the document is not available.")
+
+        content = pdf_element.get('src').replace('#navpanes=0&view=FitH', '').replace('//', '/')
 
         if content.startswith('/downloads'):
             pdf_url = 'https://sci-hub.se' + content
@@ -318,8 +323,9 @@ def process_doi_or_pmid(identifier, output_file):
 
         os.remove(pdf_filename)
         print(f"Identifier {identifier} processed successfully.")
-    except Exception as e:
+    except (requests.RequestException, ValueError) as e:
         print(f"Error processing identifier {identifier}: {str(e)}")
+        print("Sci-hub appears to be inaccessible or the document was not found. Please try again later.")
 
 def main():
     input_path = input("Enter the path, URL, DOI, or PMID for ingestion: ")

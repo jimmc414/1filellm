@@ -2,7 +2,7 @@
 
 This is a command-line tool that aggregates and preprocesses data from various sources into a single text file and copies it to the clipboard. 
 
-This enables the quick creation of information-dense prompts for large language models (LLMs) by combining content from repositories, research papers, websites, and other sources. As LLM context windows grow, so does the usefulness of this tool. (To me at least)
+This enables the quick creation of information-dense prompts for large language models (LLMs) by combining content from repositories, research papers, websites, and other sources. As LLM context windows grow, this tool has become more useful for me.
 
 ## Features
 

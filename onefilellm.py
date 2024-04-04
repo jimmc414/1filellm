@@ -99,7 +99,7 @@ def process_local_directory(local_path, output):
 
                 output.write("\n\n")
 
-def process_github_repo(repo_url, output_file):
+def process_github_repo(repo_url):
     api_base_url = "https://api.github.com/repos/"
     repo_url_parts = repo_url.split("https://github.com/")[-1].split("/")
     repo_name = "/".join(repo_url_parts[:2])
@@ -112,9 +112,39 @@ def process_github_repo(repo_url, output_file):
     if subdirectory:
         contents_url = f"{contents_url}/{subdirectory}"
 
-    with open(output_file, "w", encoding='utf-8') as output:
-        process_directory(contents_url, output)
+    repo_content = []
+
+    def process_directory(url, repo_content):
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        files = response.json()
+
+        for file in files:
+            if file["type"] == "file" and is_allowed_filetype(file["name"]):
+                print(f"Processing {file['path']}...")
+
+                temp_file = f"temp_{file['name']}"
+                download_file(file["download_url"], temp_file)
+
+                repo_content.append(f"# {'-' * 3}\n")
+                repo_content.append(f"# Filename: {file['path']}\n")
+                repo_content.append(f"# {'-' * 3}\n\n")
+
+                if file["name"].endswith(".ipynb"):
+                    repo_content.append(process_ipynb_file(temp_file))
+                else:
+                    with open(temp_file, "r", encoding='utf-8', errors='ignore') as f:
+                        repo_content.append(f.read())
+
+                repo_content.append("\n\n")
+                os.remove(temp_file)
+            elif file["type"] == "dir":
+                process_directory(file["url"], repo_content)
+
+    process_directory(contents_url, repo_content)
     print("All files processed.")
+
+    return "\n".join(repo_content)
 
 def process_local_folder(local_path, output_file):
     with open(output_file, "w", encoding='utf-8') as output:
@@ -361,7 +391,7 @@ def process_github_pull_request(pull_request_url, output_file):
     # Sort comments based on their position in the diff
     all_comments.sort(key=lambda comment: comment.get("position") or float("inf"))
 
-    # Format the retrieved information
+    # Format the retrieved pull request information
     formatted_text = f"# Pull Request Information\n\n"
     formatted_text += f"## Title: {pull_request_data['title']}\n\n"
     formatted_text += f"## Description:\n{pull_request_data['body']}\n\n"
@@ -382,11 +412,20 @@ def process_github_pull_request(pull_request_url, output_file):
             formatted_text += f"Line: {comment['original_line']}\n\n"
             comment_index += 1
 
-    # Write the formatted text to the output file
-    with open(output_file, "w", encoding="utf-8") as file:
-        file.write(formatted_text)
+    # Process the entire repository
+    repo_url = f"https://github.com/{repo_owner}/{repo_name}"
+    repo_content = process_github_repo(repo_url)
 
-    print(f"Pull request {pull_request_number} processed successfully.")
+    # Concatenate the pull request information and repository content
+    final_output = f"{formatted_text}\n\n# Repository Content\n\n{repo_content}"
+
+    # Write the final output to the file
+    with open(output_file, "w", encoding="utf-8") as file:
+        file.write(final_output)
+
+    print(f"Pull request {pull_request_number} and repository content processed successfully.")
+
+    return final_output
 
 def main():
     input_path = input("Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion: ")
@@ -398,9 +437,12 @@ def main():
 
     if "github.com" in input_path:
         if "/pull/" in input_path:
-            process_github_pull_request(input_path, output_file)
+            final_output = process_github_pull_request(input_path, output_file)
         else:
-            process_github_repo(input_path, output_file)
+            repo_content = process_github_repo(input_path)
+            with open(output_file, "w", encoding="utf-8") as file:
+                file.write(repo_content)
+            final_output = repo_content
     elif "arxiv.org" in input_path:
         process_arxiv_pdf(input_path, output_file)
     elif urlparse(input_path).scheme in ["http", "https"]:
@@ -412,7 +454,7 @@ def main():
                 output.write(transcript)
             print("YouTube video transcript processed.")
         else:
-            crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs)
+            final_output = crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs)
     elif input_path.startswith("10.") and "/" in input_path or input_path.isdigit():
         process_doi_or_pmid(input_path, output_file)
     else:

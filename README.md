@@ -5,7 +5,7 @@ onefilellm is a command-line tool that aggregates and preprocesses data from var
 ## Features
 
 - Automatic source type detection based on provided path, URL, or identifier
-- Support for local files and/or directories, GitHub repositories, academic papers from ArXiv, YouTube transcripts, web page documentation, Sci-Hub hosted papers via DOI or PMID
+- Support for local files and/or directories, GitHub repositories, Github pull requests, academic papers from ArXiv, YouTube transcripts, web page documentation, Sci-Hub hosted papers via DOI or PMID
 - Handling of multiple file formats, including Jupyter Notebooks (.ipynb), and PDFs
 - Web crawling functionality to extract content from linked pages up to a specified depth
 - Integration with Sci-Hub for automatic downloading of research papers using DOIs or PMIDs

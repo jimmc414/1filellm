@@ -1,11 +1,11 @@
 # onefilellm: Command Line Data Aggregation Tool for LLM Ingestion
 
-onefilellm is a command-line tool that aggregates and preprocesses data from various sources into one text file and the clipboard for easier ingestion into large language models (LLMs).
+onefilellm is a command-line tool that aggregates and preprocesses data from various sources into a single text file and copies it to the clipboard. This enables the quick creation of information-dense prompts for large language models (LLMs) by combining content from repositories, research papers, websites, and other sources. As LLM context windows grow, tools like onefilellm will allow users to craft increasingly sophisticated and context-rich prompts.
 
 ## Features
 
 - Automatic source type detection based on provided path, URL, or identifier
-- Support for local files and/or directories, GitHub repositories, Github pull requests, academic papers from ArXiv, YouTube transcripts, web page documentation, Sci-Hub hosted papers via DOI or PMID
+- Support for local files and/or directories, GitHub repositories, GitHub pull requests, GitHub issues, academic papers from ArXiv, YouTube transcripts, web page documentation, Sci-Hub hosted papers via DOI or PMID
 - Handling of multiple file formats, including Jupyter Notebooks (.ipynb), and PDFs
 - Web crawling functionality to extract content from linked pages up to a specified depth
 - Integration with Sci-Hub for automatic downloading of research papers using DOIs or PMIDs
@@ -47,7 +47,8 @@ Run the script using the following command:
 python onefilellm.py
 ```
 
-At the prompt, enter the file or folder path, Documenation, Paper, Repo, or Pul Request URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
+At the prompt, enter the file or folder path, Documentation, Paper, Repo, Pull Request, Issue URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
+
 
 ```plaintext
 Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion:
@@ -55,15 +56,16 @@ Enter the local or Github repo path, GitHub pull request URL, Documentation URL,
 
 The tool supports the following input options:
 
-- Local file path (e.g., `C:\documents\report.pdf`)
-- Local directory path (e.g., `C:\projects\research`) -> (files of selected filetypes segmented into one flat text file) 
-- GitHub repository URL  (e.g., `https://github.com/username/repo`) -> (Repo files of selected filetypes segmented into one flat text file)
-- GitHub pull request URL (e.g., https://github.com/username/repo/pull/123) -> (Pull request diff detail and comments and entire repository content concatenated into one flat text file)
-- ArXiv paper URL (e.g., `https://arxiv.org/abs/2401.14295`) -> (Full paper PDF to text file)
-- YouTube video URL (e.g., `https://www.youtube.com/watch?v=video_id`) -> (Video transcript to text file)
-- Webpage URL  (e.g., `https://example.com/page` | `https://example.com/page/page.pdf`) -> (To scrape pages to x depth or remote file in segmented text file)
-- Sci-Hub Paper DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., `10.1234/example.doi`) -> (Full Sci-Hub paper PDF to text file)
-- Sci-Hub Paper PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., `12345678`) -> (Full Sci-Hub paper PDF to text file)
+Local file path (e.g., C:\documents\report.pdf)
+Local directory path (e.g., C:\projects\research) -> (files of selected filetypes segmented into one flat text file)
+GitHub repository URL (e.g., https://github.com/jimmc414/onefilellm) -> (Repo files of selected filetypes segmented into one flat text file)
+GitHub pull request URL (e.g., https://github.com/dear-github/dear-github/pull/102) -> (Pull request diff detail and comments and entire repository content concatenated into one flat text file)
+GitHub issue URL (e.g., https://github.com/isaacs/github/issues/1191) -> (Issue details, comments, and entire repository content concatenated into one flat text file)
+ArXiv paper URL (e.g., https://arxiv.org/abs/2401.14295) -> (Full paper PDF to text file)
+YouTube video URL (e.g., https://www.youtube.com/watch?v=KZ_NlnmPQYk) -> (Video transcript to text file)
+Webpage URL (e.g., https://llm.datasette.io/en/stable/) -> (To scrape pages to x depth in segmented text file)
+Sci-Hub Paper DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., 10.1053/j.ajkd.2017.08.002) -> (Full Sci-Hub paper PDF to text file)
+Sci-Hub Paper PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., 29203127) -> (Full Sci-Hub paper PDF to text file)
 
 The script generates the following output files:
 

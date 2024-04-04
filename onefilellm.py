@@ -427,8 +427,73 @@ def process_github_pull_request(pull_request_url, output_file):
 
     return final_output
 
+def process_github_issue(issue_url, output_file):
+    # Extract repository owner, repository name, and issue number from the URL
+    url_parts = issue_url.split("/")
+    repo_owner = url_parts[3]
+    repo_name = url_parts[4]
+    issue_number = url_parts[-1]
+
+    # Make API requests to retrieve issue information
+    api_base_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/issues/{issue_number}"
+    headers = {"Authorization": f"token {TOKEN}"}
+
+    # Retrieve issue details
+    response = requests.get(api_base_url, headers=headers)
+    issue_data = response.json()
+
+    # Retrieve issue comments
+    comments_url = issue_data["comments_url"]
+    comments_response = requests.get(comments_url, headers=headers)
+    comments_data = comments_response.json()
+
+    # Format the retrieved issue information
+    formatted_text = f"# Issue Information\n\n"
+    formatted_text += f"## Title: {issue_data['title']}\n\n"
+    formatted_text += f"## Description:\n{issue_data['body']}\n\n"
+    formatted_text += f"## Comments:\n"
+
+    for comment in comments_data:
+        formatted_text += f"\n### Comment by {comment['user']['login']}:\n"
+        formatted_text += f"{comment['body']}\n"
+
+        # Extract code snippets from comment
+        code_snippets = re.findall(r'https://github.com/.*#L\d+-L\d+', comment['body'])
+        for snippet_url in code_snippets:
+            # Extract file path, start line, and end line from the snippet URL
+            url_parts = snippet_url.split("#")
+            file_url = url_parts[0].replace("/blob/", "/raw/")
+            line_range = url_parts[1]
+            start_line, end_line = map(int, line_range.split("-")[0][1:]), map(int, line_range.split("-")[1][1:])
+
+            # Make API request to retrieve the file content
+            file_response = requests.get(file_url, headers=headers)
+            file_content = file_response.text
+
+            # Extract the code snippet based on the line range
+            code_lines = file_content.split("\n")[start_line-1:end_line]
+            code_snippet = "\n".join(code_lines)
+
+            # Add the code snippet to the formatted text
+            formatted_text += f"\n#### Code Snippet:\n```\n{code_snippet}\n```\n"
+
+    # Process the entire repository
+    repo_url = f"https://github.com/{repo_owner}/{repo_name}"
+    repo_content = process_github_repo(repo_url)
+
+    # Concatenate the issue information and repository content
+    final_output = f"{formatted_text}\n\n# Repository Content\n\n{repo_content}"
+
+    # Write the final output to the file
+    with open(output_file, "w", encoding="utf-8") as file:
+        file.write(final_output)
+
+    print(f"Issue {issue_number} and repository content processed successfully.")
+
+    return final_output
+
 def main():
-    input_path = input("Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion: ")
+    input_path = input("Enter the local or Github repo path, GitHub pull request or Github issue URL, Documentation URL, DOI, or PMID for ingestion: ")
     output_file = "uncompressed_output.txt"
     urls_list_file = "processed_urls.txt"
     max_depth = 2
@@ -438,6 +503,8 @@ def main():
     if "github.com" in input_path:
         if "/pull/" in input_path:
             final_output = process_github_pull_request(input_path, output_file)
+        elif "/issues/" in input_path:
+            final_output = process_github_issue(input_path, output_file)
         else:
             repo_content = process_github_repo(input_path)
             with open(output_file, "w", encoding="utf-8") as file:

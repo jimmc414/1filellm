@@ -1,6 +1,10 @@
-# onefilellm: Command Line Data Aggregation Tool for LLM Ingestion
+# Command Line Data Aggregation Tool for LLM Ingestion
 
-onefilellm is a command-line tool that aggregates and preprocesses data from various sources into a single text file and copies it to the clipboard. This enables the quick creation of information-dense prompts for large language models (LLMs) by combining content from repositories, research papers, websites, and other sources. As LLM context windows grow, tools like onefilellm will allow users to craft increasingly sophisticated and context-rich prompts.
+This is a command-line tool that aggregates and preprocesses data from various sources into a single text file and copies it to the clipboard. 
+
+This enables the quick creation of information-dense prompts for large language models (LLMs) by combining content from repositories, research papers, websites, and other sources. As LLM context windows grow, so does the usefulness of this tool. (To me at least)
+
+Lately with Claude Opus I have been able to quickly pass a quite large amount of information in one "shoot from the hip" prompt and ask questions like, "Compare these two repos, use them as a reference and build this new thing I just thought of and use this Arxiv paper and library documentation as a guide.  Read it back to me before writing code, think step by step, here's a tip, etc" with all of the effort involved in a fews cut and pastes and one barely coherent run-on sentence.  The results have been eye opening.
 
 ## Features
 

@@ -2,7 +2,7 @@ import unittest
 import os
 import tempfile
 import shutil
-from onefilellm import process_github_repo, process_arxiv_pdf, process_local_folder, fetch_youtube_transcript, crawl_and_extract_text, process_doi_or_pmid
+from onefilellm import process_github_repo, process_arxiv_pdf, process_local_folder, fetch_youtube_transcript, crawl_and_extract_text, process_doi_or_pmid, process_github_pull_request, process_github_issue
 
 class TestDataAggregation(unittest.TestCase):
     def setUp(self):
@@ -86,6 +86,30 @@ class TestDataAggregation(unittest.TestCase):
             content = file.read()
             self.assertGreater(len(content), 0)
         print("PMID processing test passed.")
+
+    def test_process_github_pull_request(self):
+        print("\nTesting GitHub pull request processing...")
+        pull_request_url = "https://github.com/dear-github/dear-github/pull/102"
+        pull_request_content = process_github_pull_request(pull_request_url, self.output_file)
+        self.assertIsInstance(pull_request_content, str)
+        self.assertGreater(len(pull_request_content), 0)
+        self.assertTrue(os.path.exists(self.output_file))
+        with open(self.output_file, "r", encoding="utf-8") as file:
+            content = file.read()
+            self.assertGreater(len(content), 0)
+        print("GitHub pull request processing test passed.")
+
+    def test_process_github_issue(self):
+        print("\nTesting GitHub issue processing...")
+        issue_url = "https://github.com/isaacs/github/issues/1191"
+        issue_content = process_github_issue(issue_url, self.output_file)
+        self.assertIsInstance(issue_content, str)
+        self.assertGreater(len(issue_content), 0)
+        self.assertTrue(os.path.exists(self.output_file))
+        with open(self.output_file, "r", encoding="utf-8") as file:
+            content = file.read()
+            self.assertGreater(len(content), 0)
+        print("GitHub issue processing test passed.")
 
 if __name__ == "__main__":
     unittest.main()

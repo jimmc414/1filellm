@@ -17,11 +17,12 @@ class TestDataAggregation(unittest.TestCase):
     def test_github_repo(self):
         print("\nTesting GitHub repository processing...")
         repo_url = "https://github.com/jimmc414/onefilellm"
-        process_github_repo(repo_url, self.output_file)
+        repo_content = process_github_repo(repo_url)
+        self.assertIsInstance(repo_content, str)
+        self.assertGreater(len(repo_content), 0)
+        with open(self.output_file, "w", encoding="utf-8") as file:
+            file.write(repo_content)
         self.assertTrue(os.path.exists(self.output_file))
-        with open(self.output_file, "r", encoding="utf-8") as file:
-            content = file.read()
-            self.assertGreater(len(content), 0)
         print("GitHub repository processing test passed.")
 
     def test_arxiv_pdf(self):

@@ -50,7 +50,7 @@ python onefilellm.py
 At the prompt, enter the file or folder path, Documenation, Paper or Repo URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
 
 ```plaintext
-Enter the local or remote path, URL, DOI, or PMID for ingestion:
+Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion:
 ```
 
 The tool supports the following input options:

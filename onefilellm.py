@@ -327,8 +327,69 @@ def process_doi_or_pmid(identifier, output_file):
         print(f"Error processing identifier {identifier}: {str(e)}")
         print("Sci-hub appears to be inaccessible or the document was not found. Please try again later.")
 
+def process_github_pull_request(pull_request_url, output_file):
+    # Extract repository owner, repository name, and pull request number from the URL
+    url_parts = pull_request_url.split("/")
+    repo_owner = url_parts[3]
+    repo_name = url_parts[4]
+    pull_request_number = url_parts[-1]
+
+    # Make API requests to retrieve pull request information
+    api_base_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls/{pull_request_number}"
+    headers = {"Authorization": f"token {TOKEN}"}
+
+    # Retrieve pull request details
+    response = requests.get(api_base_url, headers=headers)
+    pull_request_data = response.json()
+
+    # Retrieve pull request diff
+    diff_url = pull_request_data["diff_url"]
+    diff_response = requests.get(diff_url, headers=headers)
+    pull_request_diff = diff_response.text
+
+    # Retrieve pull request comments and review comments
+    comments_url = pull_request_data["comments_url"]
+    review_comments_url = pull_request_data["review_comments_url"]
+    comments_response = requests.get(comments_url, headers=headers)
+    review_comments_response = requests.get(review_comments_url, headers=headers)
+    comments_data = comments_response.json()
+    review_comments_data = review_comments_response.json()
+
+    # Combine comments and review comments into a single list
+    all_comments = comments_data + review_comments_data
+
+    # Sort comments based on their position in the diff
+    all_comments.sort(key=lambda comment: comment.get("position") or float("inf"))
+
+    # Format the retrieved information
+    formatted_text = f"# Pull Request Information\n\n"
+    formatted_text += f"## Title: {pull_request_data['title']}\n\n"
+    formatted_text += f"## Description:\n{pull_request_data['body']}\n\n"
+    formatted_text += f"## Merge Details:\n"
+    formatted_text += f"{pull_request_data['user']['login']} wants to merge {pull_request_data['commits']} commit into {repo_owner}:{pull_request_data['base']['ref']} from {pull_request_data['head']['label']}\n\n"
+    formatted_text += f"## Diff and Comments:\n"
+
+    # Iterate through the diff and interleave comments
+    diff_lines = pull_request_diff.split("\n")
+    comment_index = 0
+    for line in diff_lines:
+        formatted_text += f"{line}\n"
+        while comment_index < len(all_comments) and all_comments[comment_index].get("position") == diff_lines.index(line):
+            comment = all_comments[comment_index]
+            formatted_text += f"\n### Review Comment by {comment['user']['login']}:\n"
+            formatted_text += f"{comment['body']}\n\n"
+            formatted_text += f"Path: {comment['path']}\n"
+            formatted_text += f"Line: {comment['original_line']}\n\n"
+            comment_index += 1
+
+    # Write the formatted text to the output file
+    with open(output_file, "w", encoding="utf-8") as file:
+        file.write(formatted_text)
+
+    print(f"Pull request {pull_request_number} processed successfully.")
+
 def main():
-    input_path = input("Enter the path, URL, DOI, or PMID for ingestion: ")
+    input_path = input("Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion: ")
     output_file = "uncompressed_output.txt"
     urls_list_file = "processed_urls.txt"
     max_depth = 2
@@ -336,7 +397,10 @@ def main():
     ignore_epubs = True
 
     if "github.com" in input_path:
-        process_github_repo(input_path, output_file)
+        if "/pull/" in input_path:
+            process_github_pull_request(input_path, output_file)
+        else:
+            process_github_repo(input_path, output_file)
     elif "arxiv.org" in input_path:
         process_arxiv_pdf(input_path, output_file)
     elif urlparse(input_path).scheme in ["http", "https"]:

@@ -47,7 +47,7 @@ Run the script using the following command:
 python onefilellm.py
 ```
 
-At the prompt, enter the file or folder path, Documenation, Paper or Repo URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
+At the prompt, enter the file or folder path, Documenation, Paper, Repo, or Pul Request URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
 
 ```plaintext
 Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion:
@@ -58,7 +58,7 @@ The tool supports the following input options:
 - Local file path (e.g., `C:\documents\report.pdf`)
 - Local directory path (e.g., `C:\projects\research`) -> (files of selected filetypes segmented into one flat text file) 
 - GitHub repository URL  (e.g., `https://github.com/username/repo`) -> (Repo files of selected filetypes segmented into one flat text file)
-- GitHub pull request URL (e.g., https://github.com/username/repo/pull/123) -> (Pull request information and entire repository content concatenated into one flat text file)
+- GitHub pull request URL (e.g., https://github.com/username/repo/pull/123) -> (Pull request diff detail and comments and entire repository content concatenated into one flat text file)
 - ArXiv paper URL (e.g., `https://arxiv.org/abs/2401.14295`) -> (Full paper PDF to text file)
 - YouTube video URL (e.g., `https://www.youtube.com/watch?v=video_id`) -> (Video transcript to text file)
 - Webpage URL  (e.g., `https://example.com/page` | `https://example.com/page/page.pdf`) -> (To scrape pages to x depth or remote file in segmented text file)

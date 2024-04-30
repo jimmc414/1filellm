@@ -41,7 +41,7 @@ def download_file(url, target_path):
         f.write(response.content)
 
 def is_allowed_filetype(filename):
-    allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml', '.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
+    allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
     return any(filename.endswith(ext) for ext in allowed_extensions)
 
 def process_ipynb_file(temp_file):

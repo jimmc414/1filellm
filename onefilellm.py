@@ -16,6 +16,15 @@ import pyperclip
 import wget
 from tqdm import tqdm
 from time import sleep
+from rich import print
+from rich.console import Console
+from rich.panel import Panel
+from rich.text import Text
+from rich.prompt import Prompt
+from rich.style import Style
+from rich.syntax import Syntax
+from rich.traceback import install
+from rich.progress import Progress, TextColumn, BarColumn, TimeRemainingColumn
 
 def safe_file_read(filepath, fallback_encoding='latin1'):
     try:
@@ -25,7 +34,7 @@ def safe_file_read(filepath, fallback_encoding='latin1'):
         with open(filepath, "r", encoding=fallback_encoding) as file:
             return file.read()
 
-nltk.download("stopwords")
+nltk.download("stopwords", quiet=True)
 stop_words = set(stopwords.words("english"))
 
 TOKEN = os.getenv('GITHUB_TOKEN', 'default_token_here')
@@ -41,7 +50,7 @@ def download_file(url, target_path):
         f.write(response.content)
 
 def is_allowed_filetype(filename):
-    allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml', '.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
+    allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
     return any(filename.endswith(ext) for ext in allowed_extensions)
 
 def process_ipynb_file(temp_file):
@@ -493,53 +502,97 @@ def process_github_issue(issue_url, output_file):
     return final_output
 
 def main():
-    input_path = input("Enter the local or Github repo path, GitHub pull request or Github issue URL, Documentation URL, DOI, or PMID for ingestion: ")
+    console = Console()
+
+    intro_text = Text("\nEnter the path or URL for ingestion:\n", style="purple4")
+    input_types = [
+        ("• Local folder path(flattens all files into text)", "bright_white"),
+        ("• GitHub repository URL(flattens all files into text)", "bright_white"),
+        ("• GitHub pull request URL(PR + Repo)", "bright_white"),
+        ("• GitHub issue URL(Issue + Repo)", "bright_white"),
+        ("• Documentation URL (base URL)", "bright_white"),
+        ("• YouTube video URL (to fetch transcript)", "bright_white"),
+        ("• ArXiv Paper URL", "bright_white"),
+        ("• DOI or PMID to search on Sci-Hub", "bright_white"),
+    ]
+
+    for input_type, color in input_types:
+        intro_text.append(f"\n{input_type}", style=color)
+
+    intro_panel = Panel(
+        intro_text,
+        expand=False,
+        border_style="bold",
+        title="[bold bright_cyan]Copy to File and Clipboard[/bold bright_cyan]",
+        title_align="center",
+        padding=(1, 1),
+    )
+    console.print(intro_panel)
+
+    input_path = Prompt.ask("\n[bold purple4]Enter the path or URL[/bold purple4]", console=console)
+    console.print(f"\n[bold bright_green]You entered:[/bold bright_green] [bold bright_yellow]{input_path}[/bold bright_yellow]\n")
+
     output_file = "uncompressed_output.txt"
     urls_list_file = "processed_urls.txt"
-    max_depth = 2
-    include_pdfs = True
-    ignore_epubs = True
 
-    if "github.com" in input_path:
-        if "/pull/" in input_path:
-            final_output = process_github_pull_request(input_path, output_file)
-        elif "/issues/" in input_path:
-            final_output = process_github_issue(input_path, output_file)
-        else:
-            repo_content = process_github_repo(input_path)
-            with open(output_file, "w", encoding="utf-8") as file:
-                file.write(repo_content)
-            final_output = repo_content
-    elif "arxiv.org" in input_path:
-        process_arxiv_pdf(input_path, output_file)
-    elif urlparse(input_path).scheme in ["http", "https"]:
-        if "youtube.com" in input_path or "youtu.be" in input_path:
-            transcript = fetch_youtube_transcript(input_path)
-            with open(output_file, "w", encoding='utf-8') as output:
-                output.write(f"# YouTube Video Transcript\n")
-                output.write(f"# URL: {input_path}\n\n")
-                output.write(transcript)
-            print("YouTube video transcript processed.")
-        else:
-            final_output = crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth, include_pdfs, ignore_epubs)
-    elif input_path.startswith("10.") and "/" in input_path or input_path.isdigit():
-        process_doi_or_pmid(input_path, output_file)
-    else:
-        process_local_folder(input_path, output_file)
+    with Progress(
+        TextColumn("[bold bright_blue]{task.description}"),
+        BarColumn(bar_width=None),
+        TimeRemainingColumn(),
+        console=console,
+    ) as progress:
 
-    processed_file = "compressed_output.txt"
-    preprocess_text(output_file, processed_file)
+        task = progress.add_task("[bright_blue]Processing...", total=100)
+
+        if "github.com" in input_path:
+            if "/pull/" in input_path:
+                final_output = process_github_pull_request(input_path, output_file)
+            elif "/issues/" in input_path:
+                final_output = process_github_issue(input_path, output_file)
+            else:
+                repo_content = process_github_repo(input_path)
+                with open(output_file, "w", encoding="utf-8") as file:
+                    file.write(repo_content)
+                final_output = repo_content
+        elif urlparse(input_path).scheme in ["http", "https"]:
+            if "youtube.com" in input_path or "youtu.be" in input_path:
+                transcript = fetch_youtube_transcript(input_path)
+                if transcript:
+                    with open(output_file, "w", encoding='utf-8') as output:
+                        output.write(f"# YouTube Video Transcript\n")
+                        output.write(f"# URL: {input_path}\n\n")
+                        output.write(transcript)
+                    print("[bright_green]YouTube video transcript processed.[/bright_green]")
+                else:
+                    print("[bright_yellow]No transcript available for the YouTube video.[/bright_yellow]")
+            elif "arxiv.org" in input_path:
+                process_arxiv_pdf(input_path, output_file)
+            else:
+                final_output = crawl_and_extract_text(input_path, output_file, urls_list_file, max_depth=2, include_pdfs=True, ignore_epubs=True)
+        elif input_path.startswith("10.") and "/" in input_path or input_path.isdigit():
+            process_doi_or_pmid(input_path, output_file)
+        else:
+            process_local_folder(input_path, output_file)
+
+        progress.update(task, advance=50)
+
+        processed_file = "compressed_output.txt"
+        preprocess_text(output_file, processed_file)
+
+        progress.update(task, advance=50)
 
     compressed_text = safe_file_read(processed_file)
     compressed_token_count = get_token_count(compressed_text)
-    print("Compressed Token Count:", compressed_token_count)
+    print(f"\n[bright_green]Compressed Token Count:[/bright_green] [bold bright_cyan]{compressed_token_count}[/bold bright_cyan]")
 
     uncompressed_text = safe_file_read(output_file)
     uncompressed_token_count = get_token_count(uncompressed_text)
-    print("Uncompressed Token Count:", uncompressed_token_count)
+    print(f"[bright_green]Uncompressed Token Count:[/bright_green] [bold bright_cyan]{uncompressed_token_count}[/bold bright_cyan]")
+
+    print(f"\n[bright_green]compressed_output.txt[/bright_green] and [bright_green]uncompressed_output.txt[/bright_green] have been created in the working directory.")
 
     pyperclip.copy(uncompressed_text)
-    print(f"compressed_output.txt and uncompressed_output.txt have been created in the working directory. Contents of {output_file} have been copied to the clipboard.")
+    console.print(f"\n[bright_green]The contents of {output_file} have been copied to the clipboard.[/bright_green]")
 
 if __name__ == "__main__":
     main()

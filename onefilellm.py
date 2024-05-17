@@ -50,8 +50,9 @@ def download_file(url, target_path):
         f.write(response.content)
 
 def is_allowed_filetype(filename):
-    allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv']
+    allowed_extensions = ['.py', '.txt', '.js', '.tsx', '.ts', '.md', '.cjs', '.html', '.json', '.ipynb', '.h', '.localhost', '.sh', '.yaml', '.example']
     return any(filename.endswith(ext) for ext in allowed_extensions)
+    
 
 def process_ipynb_file(temp_file):
     with open(temp_file, "r", encoding='utf-8', errors='ignore') as f:
@@ -504,7 +505,7 @@ def process_github_issue(issue_url, output_file):
 def main():
     console = Console()
 
-    intro_text = Text("\nEnter the path or URL for ingestion:\n", style="purple4")
+    intro_text = Text("\nInput Paths or URLs Processed:\n", style="dodger_blue1")
     input_types = [
         ("• Local folder path(flattens all files into text)", "bright_white"),
         ("• GitHub repository URL(flattens all files into text)", "bright_white"),
@@ -523,13 +524,13 @@ def main():
         intro_text,
         expand=False,
         border_style="bold",
-        title="[bold bright_cyan]Copy to File and Clipboard[/bold bright_cyan]",
+        title="[bright_white]Copy to File and Clipboard[/bright_white]",
         title_align="center",
         padding=(1, 1),
     )
     console.print(intro_panel)
 
-    input_path = Prompt.ask("\n[bold purple4]Enter the path or URL[/bold purple4]", console=console)
+    input_path = Prompt.ask("\n[bold dodger_blue1]Enter the path or URL[/bold dodger_blue1]", console=console)
     console.print(f"\n[bold bright_green]You entered:[/bold bright_green] [bold bright_yellow]{input_path}[/bold bright_yellow]\n")
 
     output_file = "uncompressed_output.txt"
@@ -589,10 +590,10 @@ def main():
     uncompressed_token_count = get_token_count(uncompressed_text)
     print(f"[bright_green]Uncompressed Token Count:[/bright_green] [bold bright_cyan]{uncompressed_token_count}[/bold bright_cyan]")
 
-    print(f"\n[bright_green]compressed_output.txt[/bright_green] and [bright_green]uncompressed_output.txt[/bright_green] have been created in the working directory.")
+    print(f"\n[bold bright_yellow]compressed_output.txt[/bold bright_yellow] and [bold bright_blue]uncompressed_output.txt[/bold bright_blue] have been created in the working directory.")
 
     pyperclip.copy(uncompressed_text)
-    console.print(f"\n[bright_green]The contents of {output_file} have been copied to the clipboard.[/bright_green]")
+    console.print(f"\n[bright_white]The contents of [bold bright_blue]{output_file}[/bold bright_blue] have been copied to the clipboard.[/bright_white]")
 
 if __name__ == "__main__":
     main()

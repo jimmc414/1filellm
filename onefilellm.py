@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup, Comment
 from urllib.parse import urljoin, urlparse
 from PyPDF2 import PdfReader
 import os
+import sys
 import tiktoken
 import nltk
 from nltk.corpus import stopwords
@@ -530,7 +531,11 @@ def main():
     )
     console.print(intro_panel)
 
-    input_path = Prompt.ask("\n[bold dodger_blue1]Enter the path or URL[/bold dodger_blue1]", console=console)
+    if len(sys.argv) > 1:
+        input_path = sys.argv[1]
+    else:
+        input_path = Prompt.ask("\n[bold dodger_blue1]Enter the path or URL[/bold dodger_blue1]", console=console)
+    
     console.print(f"\n[bold bright_green]You entered:[/bold bright_green] [bold bright_yellow]{input_path}[/bold bright_yellow]\n")
 
     output_file = "uncompressed_output.txt"

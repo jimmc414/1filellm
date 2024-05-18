@@ -15,6 +15,37 @@ This enables the quick creation of information-dense prompts for large language 
 - Automatic copying of uncompressed text to the clipboard for easy pasting into LLMs
 - Token count reporting for both compressed and uncompressed outputs
 
+## Recent Changes
+
+- **2024-05-17:** Added ability to pass path or URL as command line argument.
+- **2024-05-16:** Updated text colors.
+- **2024-05-11:** 
+  - Updated requirements.txt.
+  - Added Rich library to `onefilellm.py`.
+- **2024-04-04:**
+  - Added GitHub PR and issue tests.
+  - Added GitHub PR and issues.
+  - Added tests for GitHub PRs and issues.
+  - Added ability to concatenate specific GitHub issue and repo when GitHub issue URL is passed.
+  - Updated tests to include pull request changes.
+  - Added ability to concatenate pull request and repo when GitHub pull request URL is passed.
+- **2024-04-03:**
+  - Included the ability to pull a complete GitHub pull request given the GitHub pull request URL.
+  - Updated `onefilellm.py` to return an error when Sci-hub is inaccessible or no document is found.
+- **2024-03-19:**
+  - Updated for Sci-Hub integration.
+  - Added Sci-Hub DOI and PMIDs to test battery.
+  - Added tests for Sci-Hub downloads via DOI and PMID.
+- **2024-03-18:**
+  - Updated for Sci-Hub, medrxiv, biorxiv & xlsx integration.
+  - Added libraries.
+  - Added Sci-Hub integration via paper's DOI or PMID.
+- **2024-03-06:**
+  - Created automated testing README.
+  - Added automated self-testing module.
+  - Renamed `onefilellm.py` for automated testing (no number as module's first character).
+- **2024-02-13:** Added ability to ingest YouTube transcripts from URL.
+
 ## Installation
 
 ### Prerequisites
@@ -51,6 +82,11 @@ python onefilellm.py
 
 At the prompt, enter the file or folder path, Documentation, Paper, Repo, Pull Request, Issue URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
 
+Or pass the URL or path in at the command line for the same behavior with less human interaction:
+
+```bash
+python onefilellm.py https://github.com/jimmc414/1filellm
+```
 
 ```plaintext
 Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion:

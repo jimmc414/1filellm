@@ -82,14 +82,14 @@ python onefilellm.py
 
 At the prompt, enter the file or folder path, Documentation, Paper, Repo, Pull Request, Issue URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
 
+```plaintext
+Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion:
+```
+
 Or pass the URL or path in at the command line for the same behavior with less human interaction:
 
 ```bash
 python onefilellm.py https://github.com/jimmc414/1filellm
-```
-
-```plaintext
-Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion:
 ```
 
 The tool supports the following input options:

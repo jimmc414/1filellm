@@ -229,11 +229,18 @@ def preprocess_text(input_file, output_file):
     with open(output_file, "w", encoding="utf-8") as output_file:
         output_file.write(text.strip())
 
-def get_token_count(text):
+def get_token_count(text, disallowed_special=[], chunk_size=1000):
     enc = tiktoken.get_encoding("cl100k_base")
-    disallowed_special = enc.special_tokens_set - {''}
-    tokens = enc.encode(text, disallowed_special=disallowed_special)
-    return len(tokens)
+
+    # Split the text into smaller chunks
+    chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+    total_tokens = 0
+
+    for chunk in chunks:
+        tokens = enc.encode(chunk, disallowed_special=disallowed_special)
+        total_tokens += len(tokens)
+    
+    return total_tokens
 
 def is_same_domain(base_url, new_url):
     return urlparse(base_url).netloc == urlparse(new_url).netloc

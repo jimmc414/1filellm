@@ -4,7 +4,7 @@ This is a command-line tool that aggregates and preprocesses data from various s
 
 This enables the quick creation of information-dense prompts for large language models (LLMs) by combining content from repositories, research papers, websites, and other sources. 
 
-For more detailed program documentation see architecture.md
+For more detailed program documentation see [architecture.md](https://github.com/jimmc414/1filellm/blob/main/architecture.md)
 
 ## Features
 

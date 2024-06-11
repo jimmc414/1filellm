@@ -4,6 +4,8 @@ This is a command-line tool that aggregates and preprocesses data from various s
 
 This enables the quick creation of information-dense prompts for large language models (LLMs) by combining content from repositories, research papers, websites, and other sources. 
 
+For more detailed program documentation see architecture.md
+
 ## Features
 
 - Automatic source type detection based on provided path, URL, or identifier

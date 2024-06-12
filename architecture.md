@@ -54,19 +54,19 @@
  | +-------------------+   +----------------+|                  |                     |
  |                                        ^                     |                     |
  | +-------------------+   +----------------+|                  |                     |
- | | YouTube Transcript |   | ArXiv PDF Proc||                  |                     |
+ | | YouTube Transcript | | ArXiv PDF Proc|  |                  |                     |
  | +-------------------+   +----------------+|                  |                     |
- | | - YouTubeTranscript|   | - Requests.get||                  |                     |
- | |   Api.get()        |   | - PdfReader() ||                  |                     |
- | | - Formatter.format |   +----------------+|                 |                     |
- | +-------------------+                      |                 |                     |
+ | | - YouTubeTranscript| | - Requests.get|  |                  |                     |
+ | |   Api.get()        | | - PdfReader() |  |                  |                     |
+ | | - Formatter.format |   +---------------+|                  |                     |
+ | +-------------------+                     |                  |                     |
  |                                        ^                     |                     |
  | +-------------------+   +----------------+|                  |                     |
- | | Sci-Hub Paper Proc |   | Webpage Crawling||                |                     |
+ | | Sci-Hub Paper Proc | | Webpage Crawling||                  |                     |
  | +-------------------+   +----------------+|                  |                     |
- | | - Requests.post() |   | - Requests.get()||                 |                     |
- | | - BeautifulSoup() |   | - BeautifulSoup||                  |                     |
- | | - Wget.download() |   | - Urljoin()     ||                 |                     |
+ | | - Requests.post() |  | - Requests.get()||                  |                     |
+ | | - BeautifulSoup() |  | - BeautifulSoup ||                  |                     |
+ | | - Wget.download() |  | - Urljoin()     ||                  |                     |
  | +-------------------+   +----------------+|                  |                     |
  +-------------------------------------------+                  |                     |
                        |                                        |                     |
@@ -143,79 +143,52 @@ The tool relies on several external libraries and tools to perform its functions
 ---
 
 
-## Dependency Graph
+onefilellm.py
+  |-- requests
+  |-- BeautifulSoup4
+  |-- PyPDF2
+  |-- tiktoken
+  |-- nltk
+  |-- nbformat
+  |-- nbconvert
+  |-- youtube-transcript-api
+  |-- pyperclip
+  |-- wget
+  |-- tqdm
+  |-- rich
+  |-- GitHub API
+  |-- ArXiv
+  |-- YouTube
+  |-- Sci-Hub
+  |-- Webpage
+  |-- Filesystem
 
-```
-graph LR
-    subgraph onefilellm.py
-        main[main()] --> process_github_repo
-        main[main()] --> process_github_pull_request
-        main[main()] --> process_github_issue
-        main[main()] --> process_arxiv_pdf
-        main[main()] --> process_local_folder
-        main[main()] --> fetch_youtube_transcript
-        main[main()] --> crawl_and_extract_text
-        main[main()] --> process_doi_or_pmid
-        main[main()] --> preprocess_text
-        main[main()] --> get_token_count
-        process_github_repo --> download_file
-        process_github_pull_request --> download_file
-        process_github_issue --> download_file
-        process_arxiv_pdf --> PdfReader
-        crawl_and_extract_text --> BeautifulSoup
-        crawl_and_extract_text --> urlparse
-        crawl_and_extract_text --> urljoin
-        crawl_and_extract_text --> is_same_domain
-        crawl_and_extract_text --> is_within_depth
-        crawl_and_extract_text --> process_pdf
-        process_doi_or_pmid --> wget
-        process_doi_or_pmid --> PdfReader
-        preprocess_text --> re
-        preprocess_text --> stop_words
-        get_token_count --> tiktoken
-    end
-    subgraph External Libraries
-        requests[requests]
-        BeautifulSoup[BeautifulSoup4]
-        PyPDF2[PyPDF2]
-        tiktoken[tiktoken]
-        nltk[nltk]
-        nbformat[nbformat]
-        nbconvert[nbconvert]
-        youtube_transcript_api[youtube-transcript-api]
-        pyperclip[pyperclip]
-        wget[wget]
-        tqdm[tqdm]
-        rich[rich]
-    end
-    subgraph External Resources
-        GitHub_API[GitHub API]
-        ArXiv[ArXiv]
-        YouTube[YouTube]
-        SciHub[Sci-Hub]
-        Webpage[Webpage]
-        Filesystem[Filesystem]
-    end
-    onefilellm.py --> requests
-    onefilellm.py --> BeautifulSoup
-    onefilellm.py --> PyPDF2
-    onefilellm.py --> tiktoken
-    onefilellm.py --> nltk
-    onefilellm.py --> nbformat
-    onefilellm.py --> nbconvert
-    onefilellm.py --> youtube_transcript_api
-    onefilellm.py --> pyperclip
-    onefilellm.py --> wget
-    onefilellm.py --> tqdm
-    onefilellm.py --> rich
-    onefilellm.py --> GitHub_API
-    onefilellm.py --> ArXiv
-    onefilellm.py --> YouTube
-    onefilellm.py --> SciHub
-    onefilellm.py --> Webpage
-    onefilellm.py --> Filesystem
-```
-
+main()
+  |-- process_github_repo
+  |   |-- download_file
+  |-- process_github_pull_request
+  |   |-- download_file
+  |-- process_github_issue
+  |   |-- download_file
+  |-- process_arxiv_pdf
+  |   |-- PdfReader (from PyPDF2)
+  |-- process_local_folder
+  |-- fetch_youtube_transcript
+  |-- crawl_and_extract_text
+  |   |-- BeautifulSoup (from BeautifulSoup4)
+  |   |-- urlparse (from urllib.parse)
+  |   |-- urljoin (from urllib.parse)
+  |   |-- is_same_domain
+  |   |-- is_within_depth
+  |   |-- process_pdf
+  |-- process_doi_or_pmid
+  |   |-- wget
+  |   |-- PdfReader (from PyPDF2)
+  |-- preprocess_text
+  |   |-- re
+  |   |-- stop_words (from nltk.corpus)
+  |-- get_token_count
+      |-- tiktoken
 
 ## Sequence Diagram
 
@@ -289,82 +262,80 @@ sequenceDiagram
 ## Data Flow Diagram
 
 ```
-graph LR
+Here's the modified Data Flow Diagram represented in plain text format:
 
-subgraph External Entities
-    UserInput[User Input]
-    GitHubAPI[GitHub API]
-    Arxiv[ArXiv]
-    YouTubeAPI[YouTube API]
-    SciHub[Sci-Hub]
-    WebPage[Web Pages]
-    LocalFiles[Local Files]
-    Clipboard[Clipboard]
-end
+External Entities
+- User Input
+- GitHub API
+- ArXiv
+- YouTube API
+- Sci-Hub
+- Web Pages
+- Local Files
+- Clipboard
 
-subgraph Processes
-    InputProcessing[Input Processing]
-    GithubProcessing[GitHub Processing]
-    ArxivProcessing[ArXiv Processing]
-    YouTubeProcessing[YouTube Processing]
-    WebCrawling[Web Crawling]
-    SciHubProcessing[Sci-Hub Processing]
-    LocalFileProcessing[Local File Processing]
-    TextProcessing[Text Processing]
-    OutputHandling[Output Handling]
-end
+Processes
+- Input Processing
+- GitHub Processing
+- ArXiv Processing
+- YouTube Processing
+- Web Crawling
+- Sci-Hub Processing
+- Local File Processing
+- Text Processing
+- Output Handling
 
-subgraph Data Stores
-    UncompressedOutput[uncompressed_output.txt]
-    CompressedOutput[compressed_output.txt]
-    ProcessedURLs[processed_urls.txt]
-end
+Data Stores
+- uncompressed_output.txt
+- compressed_output.txt
+- processed_urls.txt
 
-UserInput --> InputProcessing
-InputProcessing --> |GitHub URL| GithubProcessing
-InputProcessing --> |ArXiv URL| ArxivProcessing
-InputProcessing --> |YouTube URL| YouTubeProcessing
-InputProcessing --> |Web Page URL| WebCrawling
-InputProcessing --> |DOI or PMID| SciHubProcessing
-InputProcessing --> |Local File/Folder Path| LocalFileProcessing
+Data Flow
+- User Input -> Input Processing
+- Input Processing -> GitHub Processing (if GitHub URL)
+- Input Processing -> ArXiv Processing (if ArXiv URL)
+- Input Processing -> YouTube Processing (if YouTube URL)
+- Input Processing -> Web Crawling (if Web Page URL)
+- Input Processing -> Sci-Hub Processing (if DOI or PMID)
+- Input Processing -> Local File Processing (if Local File/Folder Path)
 
-GitHubAPI --> GithubProcessing: Repository/PR/Issue Data
-Arxiv --> ArxivProcessing: PDF Content
-YouTubeAPI --> YouTubeProcessing: Transcript
-WebPage --> WebCrawling: HTML Content
-SciHub --> SciHubProcessing: PDF Content
-LocalFiles --> LocalFileProcessing: File Content
+- GitHub API -> GitHub Processing (Repository/PR/Issue Data)
+- ArXiv -> ArXiv Processing (PDF Content)
+- YouTube API -> YouTube Processing (Transcript)
+- Web Pages -> Web Crawling (HTML Content)
+- Sci-Hub -> Sci-Hub Processing (PDF Content)
+- Local Files -> Local File Processing (File Content)
 
-GithubProcessing --> |Extracted Text| TextProcessing
-ArxivProcessing --> |Extracted Text| TextProcessing
-YouTubeProcessing --> |Transcript| TextProcessing
-WebCrawling --> |Extracted Text| TextProcessing
-SciHubProcessing --> |Extracted Text| TextProcessing
-LocalFileProcessing --> |Extracted Text| TextProcessing
+- GitHub Processing -> Text Processing (Extracted Text)
+- ArXiv Processing -> Text Processing (Extracted Text)
+- YouTube Processing -> Text Processing (Transcript)
+- Web Crawling -> Text Processing (Extracted Text)
+- Sci-Hub Processing -> Text Processing (Extracted Text)
+- Local File Processing -> Text Processing (Extracted Text)
 
-TextProcessing --> |Processed Text| OutputHandling
+- Text Processing -> Output Handling (Processed Text)
 
-OutputHandling --> |Uncompressed Text| UncompressedOutput
-OutputHandling --> |Compressed Text| CompressedOutput
-OutputHandling --> |Processed URLs| ProcessedURLs
-OutputHandling --> |Uncompressed Text| Clipboard
+- Output Handling -> uncompressed_output.txt (Uncompressed Text)
+- Output Handling -> compressed_output.txt (Compressed Text)
+- Output Handling -> processed_urls.txt (Processed URLs)
+- Output Handling -> Clipboard (Uncompressed Text)
 
-subgraph Detailed Processes
-    GithubProcessing --> |Repo URL| process_directory[Process Directory]
-    process_directory --> |Files| ExtractText[Extract Text]
-    ExtractText --> TextProcessing
-    ArxivProcessing --> |PDF| ExtractPDFText[Extract PDF Text]
-    ExtractPDFText --> TextProcessing
-    YouTubeProcessing --> |Video ID| FetchTranscript[Fetch Transcript]
-    FetchTranscript --> TextProcessing
-    WebCrawling --> |HTML| ExtractWebText[Extract Web Text]
-    ExtractWebText --> TextProcessing
-    SciHubProcessing --> |DOI/PMID| FetchSciHubPaper[Fetch Sci-Hub Paper]
-    FetchSciHubPaper --> ExtractPDFText
-    LocalFileProcessing --> |Local Path| process_local_directory[Process Local Directory]
-    process_local_directory --> ExtractText
-end
+Detailed Processes
+- GitHub Processing -> Process Directory (Repo URL)
+  - Process Directory -> Extract Text (Files)
+    - Extract Text -> Text Processing
+- ArXiv Processing -> Extract PDF Text (PDF)
+  - Extract PDF Text -> Text Processing
+- YouTube Processing -> Fetch Transcript (Video ID)
+  - Fetch Transcript -> Text Processing
+- Web Crawling -> Extract Web Text (HTML)
+  - Extract Web Text -> Text Processing
+- Sci-Hub Processing -> Fetch Sci-Hub Paper (DOI/PMID)
+  - Fetch Sci-Hub Paper -> Extract PDF Text
+- Local File Processing -> Process Local Directory (Local Path)
+  - Process Local Directory -> Extract Text
 
+This plain text representation of the Data Flow Diagram shows the flow of data between external entities, processes, and data stores. It also includes the detailed processes and their interactions.
 ```
 
 

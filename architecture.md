@@ -144,98 +144,52 @@ The tool relies on several external libraries and tools to perform its functions
 
 
 onefilellm.py
-
+```
   |-- requests
-  
   |-- BeautifulSoup4
-  
   |-- PyPDF2
-  
   |-- tiktoken
-  
   |-- nltk
-  
   |-- nbformat
-  
   |-- nbconvert
-  
   |-- youtube-transcript-api
-  
   |-- pyperclip
-  
   |-- wget
-  
   |-- tqdm
-  
   |-- rich
-  
   |-- GitHub API
-  
   |-- ArXiv
-  
   |-- YouTube
-  
   |-- Sci-Hub
-  
   |-- Webpage
-  
   |-- Filesystem
-  
-
 main()
-
   |-- process_github_repo
-  
   |   |-- download_file
-  
   |-- process_github_pull_request
-  
   |   |-- download_file
-  
   |-- process_github_issue
-  
   |   |-- download_file
-  
   |-- process_arxiv_pdf
-  
   |   |-- PdfReader (from PyPDF2)
-  
   |-- process_local_folder
-  
   |-- fetch_youtube_transcript
-  
   |-- crawl_and_extract_text
-  
   |   |-- BeautifulSoup (from BeautifulSoup4)
-  
   |   |-- urlparse (from urllib.parse)
-  
   |   |-- urljoin (from urllib.parse)
-  
   |   |-- is_same_domain
-  
   |   |-- is_within_depth
-  
   |   |-- process_pdf
-  
   |-- process_doi_or_pmid
-  
   |   |-- wget
-  
   |   |-- PdfReader (from PyPDF2)
-  
   |-- preprocess_text
-  
   |   |-- re
-  
   |   |-- stop_words (from nltk.corpus)
-  
   |-- get_token_count
-  
         |-- tiktoken
-        
-      
-      
+```
 
 ## Sequence Diagram
 

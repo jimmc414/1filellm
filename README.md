@@ -229,4 +229,5 @@ In the `onefilellm.py` script, replace `GITHUB_TOKEN` with your actual token or 
 - For Web scraping, Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
 - Token counts are displayed in the console for both output files.
 
-![image](https://github.com/jimmc414/1filellm/assets/6346529/5ef47d3f-e154-439e-a828-5b40a123a19c)
+![image](https://github.com/jimmc414/1filellm/assets/6346529/73c24bcb-7be7-4b67-8591-3f1404b98fba)
+

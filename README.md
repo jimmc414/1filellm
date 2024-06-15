@@ -46,7 +46,7 @@ For more detailed program documentation see [architecture.md](https://github.com
                                    | - Reports token     |         | - Wget               |
                                    |   count             |         | - Tqdm               |
                                    +---------------------+         | - Rich               |
-                                           |                        +----------------------+
+                                           |                       +----------------------+
                                            |
                                            v
                                     +---------------------+
@@ -173,6 +173,9 @@ At the prompt, enter the file or folder path, Documentation, Paper, Repo, Pull R
 ```plaintext
 Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion:
 ```
+
+![image](https://github.com/jimmc414/1filellm/assets/6346529/b4e281eb-8a41-4612-9d73-b2c115691013)
+
 
 Or pass the URL or path in at the command line for the same behavior with less human interaction:
 

@@ -17,6 +17,92 @@ For more detailed program documentation see [architecture.md](https://github.com
 - Automatic copying of uncompressed text to the clipboard for easy pasting into LLMs
 - Token count reporting for both compressed and uncompressed outputs
 
+## Data Flow Diagram
+
+```
+                                 +--------------------------------+
+                                 |      External Services         |
+                                 |--------------------------------|
+                                 |  GitHub API  | YouTube API     |
+                                 |  Sci-Hub     | ArXiv           |
+                                 +--------------------------------+
+                                           |
+                                           |
+                                           v
+ +----------------------+          +---------------------+         +----------------------+
+ |                      |          |                     |         |                      |
+ |        User          |          |  Command Line Tool  |         |  External Libraries  |
+ |----------------------|          |---------------------|         |----------------------|
+ | - Provides input URL |--------->| - Handles user input|         | - Requests           |
+ |                      |          | - Detects source    |<--------| - BeautifulSoup      |
+ | - Receives text      |          |   type              |         | - PyPDF2             |
+ |   in clipboard       |<---------| - Calls appropriate |         | - Tiktoken           |
+ |                      |          |   processing modules|         | - NLTK               |
+ +----------------------+          | - Preprocesses text |         | - Nbformat           |
+                                   | - Generates output  |         | - Nbconvert          |
+                                   |   files             |         | - YouTube Transcript |
+                                   | - Copies text to    |         |   API                |
+                                   |   clipboard         |         | - Pyperclip          |
+                                   | - Reports token     |         | - Wget               |
+                                   |   count             |         | - Tqdm               |
+                                   +---------------------+         | - Rich               |
+                                           |                        +----------------------+
+                                           |
+                                           v
+                                    +---------------------+
+                                    | Source Type         |
+                                    | Detection           |
+                                    |---------------------|
+                                    | - Determines type   |
+                                    |   of source         |
+                                    +---------------------+
+                                           |
+                                           v
+                                    +---------------------+
+                                    | Processing Modules  |
+                                    |---------------------|
+                                    | - GitHub Repo Proc  |
+                                    | - Local Dir Proc    |
+                                    | - YouTube Transcript|
+                                    |   Proc              |
+                                    | - ArXiv PDF Proc    |
+                                    | - Sci-Hub Paper Proc|
+                                    | - Webpage Crawling  |
+                                    |   Proc              |
+                                    +---------------------+
+                                           |
+                                           v
+                                    +---------------------+
+                                    | Text Preprocessing  |
+                                    |---------------------|
+                                    | - Stopword removal  |
+                                    | - Lowercase         |
+                                    |   conversion        |
+                                    | - Text cleaning     |
+                                    +---------------------+
+                                           |
+                                           v
+                                    +---------------------+
+                                    | Output Generation   |
+                                    |---------------------|
+                                    | - Compressed text   |
+                                    |   file output       |
+                                    | - Uncompressed text |
+                                    |   file output       |
+                                    +---------------------+
+                                           |
+                                           v
+                                    +---------------------+
+                                    | Token Count         |
+                                    | Reporting           |
+                                    |---------------------|
+                                    | - Report token count|
+                                    |                     |
+                                    | - Copies text to    |
+                                    |   clipboard         |
+                                    +---------------------+
+```
+
 ## Recent Changes
 
 - **2024-05-17:** Added ability to pass path or URL as command line argument.

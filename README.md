@@ -168,12 +168,6 @@ Run the script using the following command:
 python onefilellm.py
 ```
 
-At the prompt, enter the file or folder path, Documentation, Paper, Repo, Pull Request, Issue URL, or for Sci-Hub papers, the DOI or PMID of the data source you want to process:
-
-```plaintext
-Enter the local or Github repo path, GitHub pull request URL, Documentation URL, DOI, or PMID for ingestion:
-```
-
 ![image](https://github.com/jimmc414/1filellm/assets/6346529/b4e281eb-8a41-4612-9d73-b2c115691013)
 
 

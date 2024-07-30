@@ -16,6 +16,7 @@ For more detailed program documentation see [architecture.md](https://github.com
 - Text preprocessing, including compressed and uncompressed outputs, stopword removal, and lowercase conversion
 - Automatic copying of uncompressed text to the clipboard for easy pasting into LLMs
 - Token count reporting for both compressed and uncompressed outputs
+- XML encapsulation of output for improved LLM performance
 
 ## Data Flow Diagram
 
@@ -105,6 +106,10 @@ For more detailed program documentation see [architecture.md](https://github.com
 
 ## Recent Changes
 
+- **2024-07-29:**
+  - Updated output format to encapsulate content in XML tags. This change was implemented due to evaluations showing that LLMs perform better with prompts structured in XML.
+  - Added tests for GitHub issues and GitHub pull requests to improve robustness and reliability.
+  - Updated various processing functions to return formatted content instead of writing directly to files, improving consistency and testability.
 - **2024-05-17:** Added ability to pass path or URL as command line argument.
 - **2024-05-16:** Updated text colors.
 - **2024-05-11:** 
@@ -120,19 +125,6 @@ For more detailed program documentation see [architecture.md](https://github.com
 - **2024-04-03:**
   - Included the ability to pull a complete GitHub pull request given the GitHub pull request URL.
   - Updated `onefilellm.py` to return an error when Sci-hub is inaccessible or no document is found.
-- **2024-03-19:**
-  - Updated for Sci-Hub integration.
-  - Added Sci-Hub DOI and PMIDs to test battery.
-  - Added tests for Sci-Hub downloads via DOI and PMID.
-- **2024-03-18:**
-  - Updated for Sci-Hub, medrxiv, biorxiv & xlsx integration.
-  - Added libraries.
-  - Added Sci-Hub integration via paper's DOI or PMID.
-- **2024-03-06:**
-  - Created automated testing README.
-  - Added automated self-testing module.
-  - Renamed `onefilellm.py` for automated testing (no number as module's first character).
-- **2024-02-13:** Added ability to ingest YouTube transcripts from URL.
 
 ## Installation
 
@@ -223,6 +215,22 @@ In the `onefilellm.py` script, replace `GITHUB_TOKEN` with your actual token or 
   echo 'export GITHUB_TOKEN="YourGitHubToken"' >> ~/.bashrc
   source ~/.bashrc
   ```
+
+## XML Output Format
+
+All output is now encapsulated in XML tags. This change was implemented based on evaluations showing that LLMs perform better with prompts structured in XML. The general structure of the output is as follows:
+
+```xml
+<source type="[source_type]" [additional_attributes]>
+  <[content_type]>
+    [Extracted content]
+  </[content_type]>
+</source>
+```
+
+Where `[source_type]` could be one of: "github_repository", "github_pull_request", "github_issue", "arxiv_paper", "youtube_transcript", "web_documentation", "sci_hub_paper", or "local_directory".
+
+This XML structure provides clear delineation of different content types and sources, potentially improving the LLM's understanding and processing of the input.
 
 ## Notes
 - For Repos, Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```

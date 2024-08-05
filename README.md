@@ -189,7 +189,7 @@ The tool supports the following input options, with their corresponding output a
 allowed_extensions = ['.xyz', '.pdq', '.example']
 ```
 
-The output for all options is encapsulated in LLM prompt-appropriate XML and automatically copied to the clipboard.
+**The output for all options is encapsulated in LLM prompt-appropriate XML and automatically copied to the clipboard.**
 
 1. **Local file path**
    - **Example Input:** `C:\documents\report.pdf`

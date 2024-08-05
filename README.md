@@ -183,7 +183,7 @@ The tool supports the following input options:
 - Sci-Hub Paper DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., 10.1053/j.ajkd.2017.08.002) -> (Full Sci-Hub paper PDF to text file)
 - Sci-Hub Paper PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., 29203127) -> (Full Sci-Hub paper PDF to text file)
 - 
-The tool supports the following input options, with their corresponding output actions. Note that the input file extensions are selected based on the following section of code (For Repo URLS only):
+The tool supports the following input options, with their corresponding output actions. Note that the input file extensions are selected based on the following section of code (Applicable to Repos only):
 
 ```python
 allowed_extensions = ['.xyz', '.pdq', '.example']

@@ -169,6 +169,7 @@ Or pass the URL or path in at the command line for the same behavior with less h
 python onefilellm.py https://github.com/jimmc414/1filellm
 ```
 
+### Expected Inputs and Resulting Outputs
 The tool supports the following input options:
 
 - Local file path (e.g., C:\documents\report.pdf)
@@ -181,6 +182,55 @@ The tool supports the following input options:
 - Webpage URL (e.g., https://llm.datasette.io/en/stable/) -> (To scrape pages to x depth in segmented text file)
 - Sci-Hub Paper DOI (Digital Object Identifier of Sci-Hub hosted paper) (e.g., 10.1053/j.ajkd.2017.08.002) -> (Full Sci-Hub paper PDF to text file)
 - Sci-Hub Paper PMID (PubMed Identifier of Sci-Hub hosted paper) (e.g., 29203127) -> (Full Sci-Hub paper PDF to text file)
+- 
+The tool supports the following input options, with their corresponding output actions. Note that the input file extensions are selected based on the following section of code (For Repo URLS only):
+
+```python
+allowed_extensions = ['.xyz', '.pdq', '.example']
+```
+
+The output for all options is encapsulated in LLM prompt-appropriate XML and automatically copied to the clipboard.
+
+1. **Local file path**
+   - **Example Input:** `C:\documents\report.pdf`
+   - **Output:** The contents of the PDF file are extracted and saved into a single text file.
+
+2. **Local directory path**
+   - **Example Input:** `C:\projects\research`
+   - **Output:** Files of selected file types within the directory are segmented and saved into a single flat text file.
+
+3. **GitHub repository URL**
+   - **Example Input:** `https://github.com/jimmc414/onefilellm`
+   - **Output:** Repository files of selected file types are segmented and saved into a single flat text file.
+
+4. **GitHub pull request URL**
+   - **Example Input:** `https://github.com/dear-github/dear-github/pull/102`
+   - **Output:** Pull request diff details, comments, and the entire repository content are concatenated into a single flat text file.
+
+5. **GitHub issue URL**
+   - **Example Input:** `https://github.com/isaacs/github/issues/1191`
+   - **Output:** Issue details, comments, and the entire repository content are concatenated into a single flat text file.
+
+6. **ArXiv paper URL**
+   - **Example Input:** `https://arxiv.org/abs/2401.14295`
+   - **Output:** The full paper PDF is converted into a text file.
+
+7. **YouTube video URL**
+   - **Example Input:** `https://www.youtube.com/watch?v=KZ_NlnmPQYk`
+   - **Output:** The video transcript is extracted and saved into a text file.
+
+8. **Webpage URL**
+   - **Example Input:** `https://llm.datasette.io/en/stable/`
+   - **Output:** The webpage content and linked pages up to a specified depth are scraped and segmented into a text file.
+
+9. **Sci-Hub Paper DOI**
+   - **Example Input:** `10.1053/j.ajkd.2017.08.002`
+   - **Output:** The full Sci-Hub paper PDF is converted into a text file.
+
+10. **Sci-Hub Paper PMID**
+    - **Example Input:** `29203127`
+    - **Output:** The full Sci-Hub paper PDF is converted into a text file.
+
 
 The script generates the following output files:
 

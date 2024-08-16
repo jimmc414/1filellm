@@ -12,6 +12,8 @@ Data2LLM is a command-line tool designed to streamline the creation of informati
 - Token count reporting for both compressed and uncompressed outputs
 - XML encapsulation of output for improved LLM performance
 
+![image](https://github.com/jimmc414/1filellm/assets/6346529/73c24bcb-7be7-4b67-8591-3f1404b98fba)
+
 ## Data Flow Diagram
 
 ```
@@ -281,5 +283,5 @@ This XML structure provides clear delineation of different content types and sou
 - For Web scraping, Modify this line of code to change how many links deep from the starting URL to include ``` max_depth = 2 ```
 - Token counts are displayed in the console for both output files.
 
-![image](https://github.com/jimmc414/1filellm/assets/6346529/73c24bcb-7be7-4b67-8591-3f1404b98fba)
+
 

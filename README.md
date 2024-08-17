@@ -1,5 +1,6 @@
-# Data2LLM: Efficient Data Aggregation for LLM Ingestion
-Data2LLM is a command-line tool designed to streamline the creation of information-dense prompts for large language models (LLMs). It aggregates and preprocesses data from a variety of sources, compiling them into a single text file that is automatically copied to your clipboard for quick use.
+# 1FileLLM: Efficient Data Aggregation for LLM Ingestion
+1FileLLM is a command-line tool designed to streamline the creation of information-dense prompts for large language models (LLMs). It aggregates and preprocesses data from a variety of sources, compiling them into a single text file that is automatically copied to your clipboard for quick use.
+
 ## Features
 
 - Automatic source type detection based on provided path, URL, or identifier

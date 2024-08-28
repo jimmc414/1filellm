@@ -101,28 +101,6 @@
                                     +---------------------+
 ```
 
-## Recent Changes
-
-- **2024-07-29:**
-  - Updated output format to encapsulate content in XML tags. This change was implemented due to evaluations showing that LLMs perform better with prompts structured in XML.
-  - Added tests for GitHub issues and GitHub pull requests to improve robustness and reliability.
-  - Updated various processing functions to return formatted content instead of writing directly to files, improving consistency and testability.
-- **2024-05-17:** Added ability to pass path or URL as command line argument.
-- **2024-05-16:** Updated text colors.
-- **2024-05-11:** 
-  - Updated requirements.txt.
-  - Added Rich library to `onefilellm.py`.
-- **2024-04-04:**
-  - Added GitHub PR and issue tests.
-  - Added GitHub PR and issues.
-  - Added tests for GitHub PRs and issues.
-  - Added ability to concatenate specific GitHub issue and repo when GitHub issue URL is passed.
-  - Updated tests to include pull request changes.
-  - Added ability to concatenate pull request and repo when GitHub pull request URL is passed.
-- **2024-04-03:**
-  - Included the ability to pull a complete GitHub pull request given the GitHub pull request URL.
-  - Updated `onefilellm.py` to return an error when Sci-hub is inaccessible or no document is found.
-
 ## Installation
 
 ### Prerequisites
@@ -278,6 +256,29 @@ All output is now encapsulated in XML tags. This change was implemented based on
 Where `[source_type]` could be one of: "github_repository", "github_pull_request", "github_issue", "arxiv_paper", "youtube_transcript", "web_documentation", "sci_hub_paper", or "local_directory".
 
 This XML structure provides clear delineation of different content types and sources, potentially improving the LLM's understanding and processing of the input.
+
+## Recent Changes
+
+- **2024-07-29:**
+  - Updated output format to encapsulate content in XML tags. This change was implemented due to evaluations showing that LLMs perform better with prompts structured in XML.
+  - Added tests for GitHub issues and GitHub pull requests to improve robustness and reliability.
+  - Updated various processing functions to return formatted content instead of writing directly to files, improving consistency and testability.
+- **2024-05-17:** Added ability to pass path or URL as command line argument.
+- **2024-05-16:** Updated text colors.
+- **2024-05-11:** 
+  - Updated requirements.txt.
+  - Added Rich library to `onefilellm.py`.
+- **2024-04-04:**
+  - Added GitHub PR and issue tests.
+  - Added GitHub PR and issues.
+  - Added tests for GitHub PRs and issues.
+  - Added ability to concatenate specific GitHub issue and repo when GitHub issue URL is passed.
+  - Updated tests to include pull request changes.
+  - Added ability to concatenate pull request and repo when GitHub pull request URL is passed.
+- **2024-04-03:**
+  - Included the ability to pull a complete GitHub pull request given the GitHub pull request URL.
+  - Updated `onefilellm.py` to return an error when Sci-hub is inaccessible or no document is found.
+
 
 ## Notes
 - For Repos, Modify this line of code to add or remove filetypes processed: ``` allowed_extensions = ['.py', '.txt', '.js', '.rst', '.sh', '.md', '.pyx', '.html', '.yaml','.json', '.jsonl', '.ipynb', '.h', '.c', '.sql', '.csv'] ```

@@ -666,8 +666,12 @@ def main():
 
             console.print(f"\n[bold bright_yellow]{processed_file}[/bold bright_yellow] and [bold bright_blue]{output_file}[/bold bright_blue] have been created in the working directory.")
 
-            pyperclip.copy(uncompressed_text)
-            console.print(f"\n[bright_white]The contents of [bold bright_blue]{output_file}[/bold bright_blue] have been copied to the clipboard.[/bright_white]")
+            try:
+                pyperclip.copy(uncompressed_text)
+                console.print(f"\n[bright_white]The contents of [bold bright_blue]{output_file}[/bold bright_blue] have been copied to the clipboard.[/bright_white]")
+            # Error when copying to clipboard in Docker
+            except FileNotFoundError:
+                pass
 
         except Exception as e:
             console.print(f"\n[bold red]An error occurred:[/bold red] {str(e)}")

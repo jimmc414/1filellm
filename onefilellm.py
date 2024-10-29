@@ -665,9 +665,12 @@ def main():
             console.print(f"[bright_green]Uncompressed Token Count:[/bright_green] [bold bright_cyan]{uncompressed_token_count}[/bold bright_cyan]")
 
             console.print(f"\n[bold bright_yellow]{processed_file}[/bold bright_yellow] and [bold bright_blue]{output_file}[/bold bright_blue] have been created in the working directory.")
-
-            pyperclip.copy(uncompressed_text)
-            console.print(f"\n[bright_white]The contents of [bold bright_blue]{output_file}[/bold bright_blue] have been copied to the clipboard.[/bright_white]")
+            # Fix issue with pyperclip in Docker
+            try:
+                pyperclip.copy(uncompressed_text)
+                console.print(f"\n[bright_white]The contents of [bold bright_blue]{output_file}[/bold bright_blue] have been copied to the clipboard.[/bright_white]")
+            except FileNotFoundError:
+                pass
 
         except Exception as e:
             console.print(f"\n[bold red]An error occurred:[/bold red] {str(e)}")

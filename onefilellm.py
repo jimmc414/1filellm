@@ -117,13 +117,22 @@ def process_github_repo(repo_url):
     repo_url_parts = repo_url.split("https://github.com/")[-1].split("/")
     repo_name = "/".join(repo_url_parts[:2])
 
+    # Detect if we have a branch or tag reference
+    branch_or_tag = ""
     subdirectory = ""
-    if len(repo_url_parts) > 4 and repo_url_parts[2] == "tree":
-        subdirectory = "/".join(repo_url_parts[4:])
-
+    if len(repo_url_parts) > 2 and repo_url_parts[2] == "tree":
+        # The branch or tag name should be at index 3
+        if len(repo_url_parts) > 3:
+            branch_or_tag = repo_url_parts[3]
+        # Any remaining parts after the branch/tag name form the subdirectory
+        if len(repo_url_parts) > 4:
+            subdirectory = "/".join(repo_url_parts[4:])
+    
     contents_url = f"{api_base_url}{repo_name}/contents"
     if subdirectory:
         contents_url = f"{contents_url}/{subdirectory}"
+    if branch_or_tag:
+        contents_url = f"{contents_url}?ref={branch_or_tag}"
 
     repo_content = [f'<source type="github_repository" url="{repo_url}">']
 
@@ -140,15 +149,14 @@ def process_github_repo(repo_url):
                 download_file(file["download_url"], temp_file)
 
                 repo_content.append(f'<file name="{escape_xml(file["path"])}">') 
-
                 if file["name"].endswith(".ipynb"):
                     repo_content.append(escape_xml(process_ipynb_file(temp_file)))
                 else:
                     with open(temp_file, "r", encoding='utf-8', errors='ignore') as f:
                         repo_content.append(escape_xml(f.read()))
-
                 repo_content.append('</file>')
                 os.remove(temp_file)
+
             elif file["type"] == "dir":
                 process_directory(file["url"], repo_content)
 
